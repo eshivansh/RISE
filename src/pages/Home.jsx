@@ -1,7 +1,22 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import "../styles/homepage.css";
+import TradingViewWidget from "../components/TradingViewWidget.jsx";
 
+const tickers = [
+  { sym: "RELIANCE", price: "2,945.60", chg: "+1.24%", up: true },
+  { sym: "TCS", price: "4,102.35", chg: "+0.87%", up: true },
+  { sym: "HDFCBANK", price: "1,678.90", chg: "-0.45%", up: false },
+  { sym: "INFY", price: "1,842.15", chg: "+2.10%", up: true },
+  { sym: "ICICIBANK", price: "1,254.70", chg: "+0.56%", up: true },
+  { sym: "SBIN", price: "812.45", chg: "-1.20%", up: false },
+  { sym: "BHARTIARTL", price: "1,588.30", chg: "+1.75%", up: true },
+  { sym: "ITC", price: "445.80", chg: "+0.32%", up: true },
+  { sym: "LT", price: "3,624.55", chg: "+0.94%", up: true },
+  { sym: "HINDUNILVR", price: "2,412.70", chg: "-0.68%", up: false },
+  { sym: "BAJFINANCE", price: "7,185.20", chg: "+2.45%", up: true },
+  { sym: "MARUTI", price: "12,940.75", chg: "-0.85%", up: false },
+];
 
 const boxes = [
   { icon: "bi-graph-up-arrow", title: "Grow Your Wealth", text: "Invest in high-growth markets with smart strategies designed to maximize your long-term returns." },
@@ -12,7 +27,47 @@ const boxes = [
   { icon: "bi-headset", title: "24/7 Support", text: "Our support team is always available to help you whenever you need assistance." },
 ];
 
+const reviews = [
+  {
+    img: "harshad.jpeg",
+    name: "Harshad Mehta",
+    text: '"Harshad Mehta\'s stock market wisdom: blend astute analysis with calculated risk, navigating the market\'s ebbs and flows."'
+  },
+  {
+    img: "bill.jpeg",
+    name: "Warren Buffet",
+    text: '"In the stock market maze, wisdom, patience, and knowledge guide decisions toward artful investment."'
+  },
+  {
+    img: "rakesh.jpeg",
+    name: "Rakesh Jhunjhunwala",
+    text: '"In the realm of stocks, Rakesh Jhunjhunwala crafts wealth through insight, courage, and strategic vision."'
+  },
+  {
+    img: "DP.png",
+    name: "Mr Yogendra",
+    text: '"The Product is Fantastic and 24/7 Support is Impeccable."'
+  },
+  {
+    img: "harshad.jpeg",
+    name: "Harshad Mehta",
+    text: '"Harshad Mehta\'s stock market wisdom: blend astute analysis with calculated risk, navigating the market\'s ebbs and flows."'
+  },
+  {
+    img: "bill.jpeg",
+    name: "Warren Buffet",
+    text: '"In the stock market maze, wisdom, patience, and knowledge guide decisions toward artful investment."'
+  },
+];
 
+const charts = [
+  { name: "Apple", label: "NASDAQ: AAPL", symbol: "NASDAQ:AAPL" },
+  { name: "Microsoft", label: "NASDAQ: MSFT", symbol: "NASDAQ:MSFT" },
+  { name: "Google", label: "NASDAQ: GOOGL", symbol: "NASDAQ:GOOGL" },
+  { name: "Meta", label: "NASDAQ: META", symbol: "NASDAQ:META" },
+  { name: "Tesla", label: "NASDAQ: TSLA", symbol: "NASDAQ:TSLA" },
+  { name: "Amazon", label: "NASDAQ: AMZN", symbol: "NASDAQ:AMZN" },
+];
 
 export default function Home() {
   useEffect(function () {
@@ -33,6 +88,23 @@ export default function Home() {
     };
   }, []);
 
+  let tickerRows = [];
+  let twice = tickers.concat(tickers);
+  for (let i = 0; i < twice.length; i++) {
+    let t = twice[i];
+    let color = "dn";
+    if (t.up) {
+      color = "up";
+    }
+    tickerRows.push(
+      <div className="ticker-item" key={i}>
+        <span className="ticker-sym">{t.sym}</span>
+        <span className="ticker-price">₹{t.price}</span>
+        <span className={"ticker-chg " + color}>{t.chg}</span>
+      </div>
+    );
+  }
+
   let boxRows = [];
   for (let i = 0; i < boxes.length; i++) {
     let b = boxes[i];
@@ -41,6 +113,32 @@ export default function Home() {
         <i className={"bi " + b.icon}></i>
         <h3>{b.title}</h3>
         <p>{b.text}</p>
+      </div>
+    );
+  }
+
+  let reviewRows = [];
+  for (let i = 0; i < reviews.length; i++) {
+    let r = reviews[i];
+    reviewRows.push(
+      <div className="review-card" key={i}>
+        <div className="review-user">
+          <img src={"/assets/" + r.img} alt={r.name} />
+          <div><h4>{r.name}</h4></div>
+        </div>
+        <hr className="review-divider" />
+        <p className="review-text">{r.text}</p>
+      </div>
+    );
+  }
+
+  let chartRows = [];
+  for (let i = 0; i < charts.length; i++) {
+    let c = charts[i];
+    chartRows.push(
+      <div className="card" key={c.symbol}>
+        <div className="card-top">{c.name} <span>{c.label}</span></div>
+        <TradingViewWidget symbol={c.symbol} />
       </div>
     );
   }
@@ -56,6 +154,8 @@ export default function Home() {
           <nav className="nav">
             <a href="#home">Home</a>
             <a href="#about">About</a>
+            <a href="#reviews">Reviews</a>
+            <a href="#graphs">Markets</a>
           </nav>
           <Link to="/login" className="btn-cta">Get started</Link>
         </section>
@@ -72,6 +172,10 @@ export default function Home() {
           <div className="hero-btns">
             <Link to="/login" className="cta-primary">Launch Terminal</Link>
           </div>
+        </div>
+
+        <div className="ticker-wrap">
+          <div className="ticker-track" id="ticker">{tickerRows}</div>
         </div>
       </div>
 
@@ -99,11 +203,27 @@ export default function Home() {
         </div>
       </div>
 
+      <section className="reviews reveal" id="reviews">
+        <p className="section-label">Testimonials</p>
+        <h2 className="section-heading">Loved by <em>traders</em> worldwide</h2>
+        <div className="reviews-slider">
+          <div className="reviews-track">{reviewRows}</div>
+        </div>
+      </section>
+
       <div className="numbers-section reveal">
         <div className="numbers-inner">
           <div className="num-box"><div className="num-val">500K+</div><div className="num-label">Active Traders</div></div>
-          <div className="num-box"><div className="num-val">$2.4B</div><div className="num-label">Volume Traded</div></div>
+          <div className="num-box"><div className="num-val">₹100 Cr</div><div className="num-label">Volume Traded</div></div>
           <div className="num-box"><div className="num-val">99.9%</div><div className="num-label">Uptime</div></div>
+        </div>
+      </div>
+
+      <div className="stocks" id="graphs">
+        <div className="container">
+          <p className="section-label reveal">Live Markets</p>
+          <h2 className="section-heading reveal">Today's <em>top movers</em></h2>
+          <div className="grid">{chartRows}</div>
         </div>
       </div>
 
@@ -114,6 +234,48 @@ export default function Home() {
           <Link to="/login" className="cta-primary">Create Free Account</Link>
         </div>
       </div>
+
+      <footer className="footer-new">
+        <div className="footer-grid">
+          <div>
+            <Link to="/" className="footer-brand">
+              <img src="/assets/image.png" alt="logo" />
+              <span>RISE</span>
+            </Link>
+            <p className="footer-desc">The next-generation trading platform built on AI, speed, and unwavering security. Your wealth starts here.</p>
+          </div>
+          <div>
+            <div className="footer-heading">Navigate</div>
+            <div className="footer-links">
+              <a href="#home">Home</a>
+              <a href="#about">About</a>
+              <a href="#reviews">Reviews</a>
+              <a href="#graphs">Markets</a>
+            </div>
+          </div>
+          <div>
+            <div className="footer-heading">Account</div>
+            <div className="footer-links">
+              <Link to="/login">Sign In</Link>
+              <Link to="/login">Register</Link>
+              <a href="#">Privacy Policy</a>
+              <a href="#">Terms</a>
+            </div>
+          </div>
+          <div>
+            <div className="footer-heading">Contact</div>
+            <div className="footer-links">
+              <a href="mailto:info@rise.com">info@rise.com</a>
+              <a href="tel:+91 9XXXX XXXXX">+91 9XXXX XXXXX</a>
+              <a href="#">GitHub</a>
+              <a href="#">Instagram</a>
+            </div>
+          </div>
+        </div>
+        <div className="footer-bottom">
+          <span>Developed by Team RISE&reg; | All rights reserved.</span>
+        </div>
+      </footer>
     </div>
   );
 }
