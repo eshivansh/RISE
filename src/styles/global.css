@@ -1,0 +1,121 @@
+:root {
+    --bg: #000000;
+    --surface: #0a0a0a;
+    --surface2: #101010;
+    --surface3: #161616;
+    --line: #232323;
+    --text: #e8e8e8;
+    --muted: #7a7a7a;
+    --cyan: #00d4ff;
+    --cyan-dim: rgba(0, 212, 255, 0.08);
+    --gold: #f5c842;
+    --green: #00e09e;
+    --red: #ff4d6d;
+    --blue: #57a7ff;
+    --accent: var(--cyan);
+    --accent-dim: var(--cyan-dim);
+
+    --page: var(--bg);
+    --panel: var(--surface);
+    --panel-dark: #0a0a0a;
+    --panel2: var(--surface2);
+    --panel3: var(--surface3);
+    --button: #f2f2f2;
+    --buttonText: #000000;
+
+    --radius: 10px;
+    --radius-sm: 6px;
+    --sidebar-w: 260px;
+
+    --glass: #0a0a0a;
+    --glass-blur: none;
+    --glass-border: 1px solid var(--line);
+    --glass-shadow: none;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+*::selection {
+    background: #fff;
+    color: #000;
+}
+
+html, body {
+    width: 100%;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
+body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Plus Jakarta Sans', 'Inter', 'Segoe UI', sans-serif;
+    line-height: 1.5;
+    min-height: 100vh;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.2s ease;
+}
+
+h1, h2, h3, h4 {
+    margin: 0;
+    font-weight: 700;
+    color: #fff;
+}
+
+h1 { font-size: 42px; }
+h2 { font-size: 24px; }
+h3 { font-size: 20px; }
+
+.header-blur {
+    position: sticky;
+    top: 0;
+    z-index: 10000;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+    padding: 5px 24px;
+}
+
+.logo, .brand, .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    line-height: 1;
+    text-decoration: none;
+    cursor: pointer;
+    color: #fff;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    letter-spacing: 3px;
+}
+
+.logo img, .brand img, .nav-logo img {
+    height: 36px;
+    width: 36px;
+    object-fit: cover;
+    border-radius: 50% !important;
+    background: transparent;
+    display: block;
+}
+
+.logo span, .brand-title, .sidebar-brand span, .nav-logo span {
+    color: #fff;
+}
+
+.text-muted {
+    color: var(--muted);
+}
+
+.up, .is-up { color: var(--green); }
+.dn, .is-down { color: var(--red); }
