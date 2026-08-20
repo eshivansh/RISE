@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../styles/login.css";
-import logo from "../assets/image.png";
+
 
 export default function Login() {
   const goTo = useNavigate();
@@ -131,7 +131,7 @@ export default function Login() {
 
       <header className="header-blur">
         <Link to="/" className="logo">
-          <img src={logo} alt="logo" />
+          <img src="/logo.png" alt="logo" />
           <span>RISE</span>
         </Link>
         <Link to="/" className="back-link">
