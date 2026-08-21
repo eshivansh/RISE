@@ -1,8 +1,26 @@
-import { Link } from "react-router-dom";
-import "../styles/login.css";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+
 
 
 export default function Login() {
+
+  const navigate = useNavigate();
+  const [tab, setTab] = useState("login");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loginError, setLoginError] = useState("");
+  const [name, setName] = useState("");
+  const [regEmail, setRegEmail] = useState("");
+  const [regPass, setRegPass] = useState("");
+  const [regError, setRegError] = useState("");
+
+  useEffect(function () {
+    if (!localStorage.getItem("rise_user")) {
+      localStorage.setItem("rise_user", JSON.stringify({ name: "Demo Trader", email: "demo@rise.com", pass: "demo1234" }));
+    }
+  }, []);
+
   return (
     <div className="login-page">
       <div className="bg-glow"></div>
