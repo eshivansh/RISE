@@ -11,6 +11,22 @@ export default function Login() {
       localStorage.setItem("rise_user", JSON.stringify({ name: "Demo Trader", email: "demo@rise.com", pass: "demo1234" }));
     }
   }, []);
+
+  const [login, setLogin] = useState({ email: "", pass: "" });
+  const [signup, setSignup] = useState({ name: "", email: "", pass: "", confirm: "" });
+
+  const [loginError, setLoginError] = useState({ email: "", pass: "" });
+  const [signupError, setSignupError] = useState({ name: "", email: "", pass: "", confirm: "" });
+
+  const [show, setShow] = useState({ lPass: false, rPass: false, rConfirm: false });
+
+
+  function flip(key) {
+    let copy = { ...show };
+    copy[key] = !show[key];
+    setShow(copy);
+  }
+
   function tabClass(name) {
     if (tab === name) {
       return "auth-tab active";
@@ -18,6 +34,12 @@ export default function Login() {
     return "auth-tab";
   }
 
+  function errorClass(msg) {
+    if (msg) {
+      return "field-error visible";
+    }
+    return "field-error";
+  }
 
 
     return (
