@@ -21,6 +21,32 @@ export default function Login() {
     }
   }, []);
 
+ function handleLogin(event) {
+    event.preventDefault();
+    if (!email.trim()) { setLoginError("Email is required"); return; }
+    if (!password.trim()) { setLoginError("Password is required"); return; }
+    const user = JSON.parse(localStorage.getItem("rise_user"));
+    if (user.email !== email.trim() || user.pass !== password.trim()) { setLoginError("Wrong email or password"); return; }
+    localStorage.setItem("rise_loggedIn", "true");
+    navigate("/welcome");
+  }
+
+  function handleRegister(event) {
+    event.preventDefault();
+    if (!name.trim()) { setRegError("Name is required"); return; }
+    if (!regEmail.trim()) { setRegError("Email is required"); return; }
+    if (regPass.length < 8) { setRegError("Password needs 8+ characters"); return; }
+    localStorage.setItem("rise_user", JSON.stringify({ name: name.trim(), email: regEmail.trim(), pass: regPass }));
+    localStorage.setItem("rise_loggedIn", "true");
+    navigate("/welcome");
+  }
+
+  function useDemoAccount() {
+    localStorage.setItem("rise_user", JSON.stringify({ name: "Demo Trader", email: "demo@rise.com", pass: "demo1234" }));
+    localStorage.setItem("rise_loggedIn", "true");
+    navigate("/welcome");
+  }
+
   return (
     <div className="login-page">
       <div className="bg-glow"></div>
@@ -83,98 +109,279 @@ export default function Login() {
           <div className="form-card">
 
             <div className="auth-tabs">
-              <button className="active">
+              <button type = "button" className={tab === "login" ? "active":""}
+              onClick={()=> setTab("login")}
+              >
                 Sign In
               </button>
 
-              <button>
+              <button type = "button" className = {tab === "register"?"active":""}
+              onClick = {()=>setTab("register")}
+              >
                 Create Account
               </button>
             </div>
+            
 
-            <div className="login-form">
-              <h2>Welcome back</h2>
+            {tab === "login" && (
 
-              <p className="sub">
-                Don't have an account?
-                <a href="#"> Sign up free</a>
-              </p>
+              <form
+                className="login-form"
+                onSubmit={handleLogin}
+              >
 
-              <div className="field-group">
-                <label htmlFor="l-email">
-                  Email Address
-                </label>
+                <h2>Welcome back</h2>
 
-                <div className="input-wrap">
-                  <i className="bi bi-envelope field-icon"></i>
+                <p className="sub">
+                  Don't have an account?
+                  <a
+                    href="#"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setTab("register");
+                    }}
+                  >
+                    {" "}Sign up free
+                  </a>
+                </p>
 
-                  <input
-                    type="email"
-                    id="l-email"
-                    placeholder="you@example.com"
-                    maxLength={100}
-                  />
+                <div className="field-group">
+
+                  <label htmlFor="l-email">
+                    Email Address
+                  </label>
+
+                  <div className="input-wrap">
+
+                    <i className="bi bi-envelope field-icon"></i>
+
+                    <input
+                      type="email"
+                      id="l-email"
+                      placeholder="you@example.com"
+                      maxLength={100}
+                      value={email}
+                      onChange={(e) =>
+                        setEmail(e.target.value)
+                      }
+                    />
+
+                  </div>
+
                 </div>
-              </div>
 
-              <div className="field-group">
-                <label htmlFor="l-pass">
-                  Password
-                </label>
+                <div className="field-group">
 
-                <div className="input-wrap">
-                  <i className="bi bi-lock field-icon"></i>
+                  <label htmlFor="l-pass">
+                    Password
+                  </label>
 
-                  <input
-                    type="password"
-                    id="l-pass"
-                    placeholder="Enter your password"
-                    maxLength={100}
-                  />
+                  <div className="input-wrap">
+
+                    <i className="bi bi-lock field-icon"></i>
+
+                    <input
+                      type="password"
+                      id="l-pass"
+                      placeholder="Enter your password"
+                      maxLength={100}
+                      value={password}
+                      onChange={(e) =>
+                        setPassword(e.target.value)
+                      }
+                    />
+
+                  </div>
+
                 </div>
-              </div>
 
-              <div className="options-row">
-                <label className="remember-label">
-                  <input type="checkbox" />
-                  Remember me
-                </label>
+                <div className="options-row">
 
-                <a href="#" className="forgot-link">
-                  Forgot password?
-                </a>
-              </div>
+                  <label className="remember-label">
+                    <input type="checkbox" />
+                    Remember me
+                  </label>
 
-              <button className="submit-btn">
-                <span className="btn-text">
-                  Login to RISE
-                </span>
-              </button>
+                  <a
+                    href="#"
+                    className="forgot-link"
+                  >
+                    Forgot password?
+                  </a>
 
-              <div className="demo-hint">
-                Demo login → <strong>demo@rise.com</strong> /{" "}
-                <strong>demo1234</strong>
-              </div>
+                </div>
 
-              <div className="divider">
-                or continue with
-              </div>
-
-              <div className="social-row">
-                <button className="social-btn">
-                  <i className="bi bi-google"></i>
-                  Google
+                {loginError && (
+                  <p className="form-error">
+                    {loginError}
+                  </p>
+                )}
+                <button type = "submit" className= "submit-btn">
+                    <span className="btn-text">
+                        Login to RISE
+                    </span>
                 </button>
 
-                <button className="social-btn">
-                  <i className="bi bi-apple"></i>
-                  Apple
+                <div className="demo-hint">
+                    Demo login →{" "}
+                  <strong>demo@rise.com</strong> /{" "}
+                  <strong>demo1234</strong>
+                  </div>
+                  <div className="divider">
+                  or continue with
+                </div>
+
+                <div className="social-row">
+
+                  <button
+                    type="button"
+                    className="social-btn"
+                  >
+                    <i className="bi bi-google"></i>
+                    Google
+                  </button>
+
+                  <button
+                    type="button"
+                    className="social-btn"
+                  >
+                    <i className="bi bi-apple"></i>
+                    Apple
+                  </button>
+
+                </div>
+
+                <button
+                  type="button"
+                  className="demo-btn"
+                  onClick={useDemoAccount}
+                >
+                  Use Demo Account
                 </button>
-              </div>
-            </div>
+
+              </form>
+
+            )}
+
+           
+
+            {tab === "register" && (
+
+              <form
+                className="login-form"
+                onSubmit={handleRegister}
+              >
+
+                <h2>Create Account</h2>
+
+                <p className="sub">
+                  Already have an account?
+                  <a
+                    href="#"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setTab("login");
+                    }}
+                  >
+                    {" "}Sign in
+                  </a>
+                </p>
+
+                <div className="field-group">
+
+                  <label htmlFor="r-name">
+                    Full Name
+                  </label>
+
+                  <div className="input-wrap">
+
+                    <i className="bi bi-person field-icon"></i>
+
+                    <input
+                      type="text"
+                      id="r-name"
+                      placeholder="Your name"
+                      value={name}
+                      onChange={(e) =>
+                        setName(e.target.value)
+                      }
+                    />
+
+                  </div>
+
+                </div>
+
+                <div className="field-group">
+
+                  <label htmlFor="r-email">
+                    Email Address
+                  </label>
+
+                  <div className="input-wrap">
+
+                    <i className="bi bi-envelope field-icon"></i>
+
+                    <input
+                      type="email"
+                      id="r-email"
+                      placeholder="you@example.com"
+                      value={regEmail}
+                      onChange={(e) =>
+                        setRegEmail(e.target.value)
+                      }
+                    />
+
+                  </div>
+
+                </div>
+
+                <div className="field-group">
+
+                  <label htmlFor="r-pass">
+                    Password
+                  </label>
+
+                  <div className="input-wrap">
+
+                    <i className="bi bi-lock field-icon"></i>
+
+                    <input
+                      type="password"
+                      id="r-pass"
+                      placeholder="Minimum 8 characters"
+                      value={regPass}
+                      onChange={(e) =>
+                        setRegPass(e.target.value)
+                      }
+                    />
+
+                  </div>
+
+                </div>
+
+                {regError && (
+                  <p className="form-error">
+                    {regError}
+                  </p>
+                )}
+
+                <button
+                  type="submit"
+                  className="submit-btn"
+                >
+                  <span className="btn-text">
+                    Create Account
+                  </span>
+                </button>
+
+              </form>
+
+            )}
 
           </div>
+
         </div>
+
       </main>
 
       <footer>
