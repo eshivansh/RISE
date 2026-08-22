@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import "../styles/loginpage.css";
 
 
 export default function Login() {
@@ -39,6 +40,20 @@ export default function Login() {
       return "field-error visible";
     }
     return "field-error";
+  }
+  
+  function eyeClass(on) {
+    if (on) {
+      return "bi bi-eye-slash field-icon-right";
+    }
+    return "bi bi-eye field-icon-right";
+  }
+
+  function boxType(on) {
+    if (on) {
+      return "text";
+    }
+    return "password";
   }
 
 
