@@ -56,6 +56,74 @@ export default function Login() {
     return "password";
   }
 
+  function doLogin() {
+    let email = login.email.trim();
+    let pass = login.pass.trim();
+
+    if (!email) {
+      setLoginError({ email: "Email is required", pass: "" });
+      return;
+    }
+    if (!pass) {
+      setLoginError({ email: "", pass: "Password is required" });
+      return;
+    }
+
+    let saved = JSON.parse(localStorage.getItem("rise_user"));
+    if (!saved || saved.email !== email || saved.pass !== pass) {
+      setLoginError({ email: "", pass: "Invalid email or password" });
+      return;
+    }
+
+    setLoginError({ email: "", pass: "" });
+    localStorage.setItem("rise_loggedIn", "true");
+    goTo("/welcome");
+  }
+
+  function doSignup() {
+    let name = signup.name.trim();
+    let email = signup.email.trim();
+    let pass = signup.pass;
+    let confirm = signup.confirm;
+
+    if (!name) {
+      setSignupError({ name: "Full name is required", email: "", pass: "", confirm: "" });
+      return;
+    }
+    if (!email) {
+      setSignupError({ name: "", email: "Email is required", pass: "", confirm: "" });
+      return;
+    }
+    if (!pass) {
+      setSignupError({ name: "", email: "", pass: "Password is required", confirm: "" });
+      return;
+    }
+    if (pass.length < 8) {
+      setSignupError({ name: "", email: "", pass: "At least 8 characters", confirm: "" });
+      return;
+    }
+    if (pass !== confirm) {
+      setSignupError({ name: "", email: "", pass: "", confirm: "Passwords do not match" });
+      return;
+    }
+
+    setSignupError({ name: "", email: "", pass: "", confirm: "" });
+    localStorage.setItem("rise_user", JSON.stringify({ name: name, email: email, pass: pass }));
+    localStorage.setItem("rise_loggedIn", "true");
+    goTo("/welcome");
+  }
+
+  function onEnter(e, action) {
+    if (e.key === "Enter") {
+      action();
+    }
+  }
+
+  function demoLogin() {
+    localStorage.setItem("rise_user", JSON.stringify({ name: "Demo Trader", email: "demo@rise.com", pass: "demo1234" }));
+    localStorage.setItem("rise_loggedIn", "true");
+    goTo("/welcome");
+  }
 
     return (
     <div className="loginPage">
