@@ -42,12 +42,7 @@ export default function Login() {
     return "field-error";
   }
   
-  function eyeClass(on) {
-    if (on) {
-      return "bi bi-eye-slash field-icon-right";
-    }
-    return "bi bi-eye field-icon-right";
-  }
+
 
   function boxType(on) {
     if (on) {
@@ -132,11 +127,11 @@ export default function Login() {
 
       <header className="header">
         <Link to="/" className="logo">
-          <img src="/assets/image.png" alt="logo" />
+          <img src="./public/assets/image.png" alt="logo" />
           <span>RISE</span>
         </Link>
         <Link to="/" className="backLink">
-          <i className="bi bi-arrow-left"></i> Back to Home
+           Back to Home
         </Link>
       </header>
 
@@ -147,15 +142,15 @@ export default function Login() {
           
           <div className="features">
             <div className="feature">
-             {/*  <div className="featureIcon"><i className="bi bi-graph-up-arrow"></i></div> */}
+             
               <div className="featureText"><strong>Live Market Data</strong></div>
             </div>
             <div className="feature">
-             {/*  <div className="featureIcon"><i className="bi bi-lightbulb"></i></div> */}
+            
               <div className="featureText"><strong>AI Smart Advisor</strong></div>
             </div>
             <div className="feature">
-            {/*   <div className="featureIcon"><i className="bi bi-shield-check"></i></div> */}
+            
               <div className="featureText"><strong>Bank-Grade Security</strong></div>
             </div>
           </div>
@@ -176,7 +171,7 @@ export default function Login() {
                 <div className="fGroup">
                   <label htmlFor="lEmail">Email Address</label>
                   <div className="inputWrap">
-                    <i className="bi bi-envelope field-icon"></i>
+                    
                     <input
                       type="email"
                       id="lEmail"
@@ -187,13 +182,13 @@ export default function Login() {
                       onKeyDown={(e) => onEnter(e, doLogin)}
                     />
                   </div>
-                  <div className={errorClass(loginError.email)}><i className="bi bi-exclamation-circle"></i><span>{loginError.email}</span></div>
+                  <div className={errorClass(loginError.email)}><span>{loginError.email}</span></div>
                 </div>
 
                 <div className="fGroup">
                   <label htmlFor="lPass">Password</label>
                   <div className="inputWrap">
-                    <i className="bi bi-lock field-icon"></i>
+                  
                     <input
                       type={boxType(show.lPass)}
                       id="lPass"
@@ -203,9 +198,10 @@ export default function Login() {
                       onChange={(e) => setLogin({ ...login, pass: e.target.value })}
                       onKeyDown={(e) => onEnter(e, doLogin)}
                     />
-                    <i className={eyeClass(show.lPass)} onClick={() => flip("lPass")}></i>
+                    <button type="button" onClick={() => flip("lPass")}>{show.lPass ? "Hide" : "Show"}</button>
+                   
                   </div>
-                  <div className={errorClass(loginError.pass)}><i className="bi bi-exclamation-circle"></i><span>{loginError.pass}</span></div>
+                   <div className={errorClass(loginError.pass)}><span>{loginError.pass}</span></div> 
                 </div>
 
                 <div className="options">
@@ -221,8 +217,8 @@ export default function Login() {
 
                 <div className="divider">or continue with</div>
                 <div className="socials">
-                  <button className="socialButton" onClick={demoLogin}><i className="bi bi-google"></i> Google</button>
-                  <button className="socialButton" onClick={demoLogin}><i className="bi bi-apple"></i> Apple</button>
+                  <button className="socialButton" onClick={demoLogin}> Google</button>
+                  <button className="socialButton" onClick={demoLogin}> Apple</button>
                 </div>
               </div>
             )}
@@ -235,7 +231,7 @@ export default function Login() {
                 <div className="fGroup">
                   <label htmlFor="rName">Full Name</label>
                   <div className="inputWrap">
-                    <i className="bi bi-person field-icon"></i>
+                    
                     <input
                       type="text"
                       id="rName"
@@ -246,13 +242,13 @@ export default function Login() {
                       onKeyDown={(e) => onEnter(e, doSignup)}
                     />
                   </div>
-                  <div className={errorClass(signupError.name)}><i className="bi bi-exclamation-circle"></i><span>{signupError.name}</span></div>
+                  <div className={errorClass(signupError.name)}><span>{signupError.name}</span></div>
                 </div>
 
                 <div className="fGroup">
                   <label htmlFor="rEmail">Email Address</label>
                   <div className="inputWrap">
-                    <i className="bi bi-envelope field-icon"></i>
+                   
                     <input
                       type="email"
                       id="rEmail"
@@ -263,13 +259,13 @@ export default function Login() {
                       onKeyDown={(e) => onEnter(e, doSignup)}
                     />
                   </div>
-                  <div className={errorClass(signupError.email)}><i className="bi bi-exclamation-circle"></i><span>{signupError.email}</span></div>
+                  <div className={errorClass(signupError.email)}><span>{signupError.email}</span></div>
                 </div>
 
                 <div className="fGroup">
                   <label htmlFor="rPass">Password</label>
                   <div className="inputWrap">
-                    <i className="bi bi-lock field-icon"></i>
+                    
                     <input
                       type={boxType(show.rPass)}
                       id="rPass"
@@ -279,15 +275,16 @@ export default function Login() {
                       onChange={(e) => setSignup({ ...signup, pass: e.target.value })}
                       onKeyDown={(e) => onEnter(e, doSignup)}
                     />
-                    <i className={eyeClass(show.rPass)} onClick={() => flip("rPass")}></i>
+                   <button type="button" onClick={() => flip("rPass")}>{show.rPass ? "Hide" : "Show"}</button>
+                  
                   </div>
-                  <div className={errorClass(signupError.pass)}><i className="bi bi-exclamation-circle"></i><span>{signupError.pass}</span></div>
+                  <div className={errorClass(signupError.pass)}><span>{signupError.pass}</span></div>
                 </div>
 
                 <div className="fGroup">
                   <label htmlFor="rConfirm">Confirm Password</label>
                   <div className="inputWrap">
-                    <i className="bi bi-lock-fill field-icon"></i>
+                   
                     <input
                       type={boxType(show.rConfirm)}
                       id="rConfirm"
@@ -297,9 +294,10 @@ export default function Login() {
                       onChange={(e) => setSignup({ ...signup, confirm: e.target.value })}
                       onKeyDown={(e) => onEnter(e, doSignup)}
                     />
-                    <i className={eyeClass(show.rConfirm)} onClick={() => flip("rConfirm")}></i>
+                  
+                    <button type="button" onClick={() => flip("rConfirm")}>{show.rConfirm ? "Hide" : "Show"}</button>
                   </div>
-                  <div className={errorClass(signupError.confirm)}><i className="bi bi-exclamation-circle"></i><span>{signupError.confirm}</span></div>
+                  <div className={errorClass(signupError.confirm)}><span>{signupError.confirm}</span></div>
                 </div>
 
                 <button className="submitButton" onClick={doSignup}>
@@ -308,8 +306,8 @@ export default function Login() {
 
                 <div className="divider">or continue with</div>
                 <div className="socials">
-                  <button className="socialButton" onClick={demoLogin}><i className="bi bi-google"></i> Google</button>
-                  <button className="socialButton" onClick={demoLogin}><i className="bi bi-apple"></i> Apple</button>
+                  <button className="socialButton" onClick={demoLogin}> Google</button>
+                  <button className="socialButton" onClick={demoLogin}> Apple</button>
                 </div>
               </div>
             )}
