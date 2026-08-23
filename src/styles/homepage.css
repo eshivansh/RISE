@@ -40,6 +40,88 @@
     color: var(--cyan);
 }
 
+.home {
+    position: relative;
+    overflow: hidden;
+}
+
+
+
+.hero-new {
+    min-height: 70vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 80px 20px 40px;
+}
+
+.hero-title-new {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 800;
+    font-size: clamp(48px, 8vw, 96px);
+    line-height: 1.02;
+    letter-spacing: -2px;
+    color: #fff;
+    margin-bottom: 24px;
+}
+
+.hero-title-new .accent {
+    color: var(--cyan);
+}
+
+.hero-sub-new {
+    max-width: 600px;
+    margin: 0 auto 40px;
+    font-size: 17px;
+    color: var(--muted);
+    line-height: 1.6;
+}
+
+.hero-btns {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+}
+
+.btn-cta {
+    padding: 10px 28px;
+    background: transparent;
+    border: 1px solid #fff;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-cta:hover {
+    background: #fff;
+    color: #000;
+}
+
+.cta-primary {
+    padding: 15px 40px;
+    background: #fff;
+    color: #000;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-block;
+}
+
+.cta-primary:hover {
+    background: var(--cyan);
+}
 
 
 
