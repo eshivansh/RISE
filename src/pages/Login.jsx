@@ -122,7 +122,7 @@ export default function Login() {
   }
 
 
-  
+
     return (
     <div className="loginPage">
       <div className="backgroundGlow"></div>
@@ -140,7 +140,7 @@ export default function Login() {
 
       <main>
         <div className="leftSide">
-          <span className="eyebrow">Smart Trading Platform</span>
+          
           <h1>Your wealth<br /><span>starts here.</span></h1>
           
           <div className="features">
