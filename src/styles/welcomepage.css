@@ -1,0 +1,127 @@
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: var(--sidebar-w);
+    background: var(--surface);
+    border-right: 1px solid var(--line);
+    display: flex;
+    flex-direction: column;
+    z-index: 100;
+}
+
+.sidebar-top {
+    padding: 24px 20px;
+}
+
+.sidebar-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    letter-spacing: 3px;
+}
+
+.sidebar-brand img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.sidebar-brand span {
+    color: #fff;
+}
+
+
+.sidebar-user {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.user-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--cyan);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--bg);
+}
+
+.user-name {
+    font-size: 13px;
+    font-weight: 700;
+    color: #fff;
+}
+
+
+
+
+.sidebar-nav {
+    flex: 1;
+    padding: 20px 10px;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.2s;
+    color: var(--muted);
+}
+
+.nav-item:hover,
+.nav-item.active {
+    background: var(--surface2);
+    color: #fff;
+}
+
+.nav-item i {
+    font-size: 18px;
+}
+
+.btn-logout {
+    margin-top: auto;
+    padding: 20px;
+    border-top: 1px solid var(--line);
+    color: var(--red);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+}
+
+/* --- Main content frame ---------------------------------------- */
+
+.main-content {
+    margin-left: var(--sidebar-w);
+    padding: 40px;
+}
+
+/* --- Responsive ------------------------------------------------ */
+
+@media (max-width: 768px) {
+    .sidebar {
+        display: none;
+    }
+
+    .main-content {
+        margin-left: 0;
+        padding: 20px;
+    }
+}
+
+/* ============================================
+   Page content styles go below this line.
+   ============================================ */
