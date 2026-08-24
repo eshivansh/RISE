@@ -7,7 +7,8 @@ export default function Login() {
 
   const goTo = useNavigate();
   const [tab, setTab] = useState("login");
- useEffect(function () {
+
+  useEffect(function () {
     if (!localStorage.getItem("rise_user")) {
       localStorage.setItem("rise_user", JSON.stringify({ name: "Demo Trader", email: "demo@rise.com", pass: "demo1234" }));
     }
@@ -120,6 +121,8 @@ export default function Login() {
     goTo("/welcome");
   }
 
+
+  
     return (
     <div className="loginPage">
       <div className="backgroundGlow"></div>
