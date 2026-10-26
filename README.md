@@ -4,30 +4,32 @@
 
 # RISE
 
-**Institutional-grade market intelligence, built for everyone.**
+**A practice trading platform for beginners.**
 
-A trading platform with live market data, AI-assisted guidance,
-and a risk-free demo account to learn on.
+Learn how the stock market works with a virtual $100,000 account — no real money involved.
 
 <br />
 
-![React](https://img.shields.io/badge/React-19.2-61DAFB?style=flat-square&logo=react&logoColor=black)
-![Vite](https://img.shields.io/badge/Vite-8.2-646CFF?style=flat-square&logo=vite&logoColor=white)
-![React Router](https://img.shields.io/badge/React_Router-7.18-CA4245?style=flat-square&logo=reactrouter&logoColor=white)
-![License](https://img.shields.io/badge/license-MIT-black?style=flat-square)
+![React](https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react&logoColor=black)
+![Vite](https://img.shields.io/badge/Vite-8-646CFF?style=flat-square&logo=vite&logoColor=white)
+![React Router](https://img.shields.io/badge/React_Router-7-CA4245?style=flat-square&logo=reactrouter&logoColor=white)
 
 </div>
 
 ---
 
-## Overview
+## About
 
-RISE brings professional market tooling to retail traders — real-time NSE data,
-an AI trading coach, and a virtual portfolio so new traders can build intuition
-before risking capital.
+RISE is a university group project. It is a single-page React app with four pages:
 
-Built as a single-page React application on Vite, with client-side routing and a
-shared design-token system.
+| Page | What it does |
+| :--- | :--- |
+| **Home** | Landing page with a scrolling stock ticker, platform features, testimonials and live TradingView charts |
+| **Login** | Sign in or create an account, with form validation and a demo account |
+| **Welcome** | Greets the signed-in user and shows account stats, market movers and daily tips |
+| **Dashboard** | Risk notice, stock table with search, category filter, price sorting and pagination, chart and order panel |
+
+> **Educational demo only.** Prices are sample data and all money is virtual. Nothing in this app is financial advice. Do not trade real money based on it.
 
 ---
 
@@ -37,54 +39,52 @@ shared design-token system.
 
 **Home**
 
-<img src="public/assets/screenshots/homepage.png" width="860" alt="RISE home page" />
+<img src="docs/screenshots/homepage.png" width="860" alt="RISE home page" />
 
 <br />
 
 **Login / Register**
 
-<img src="public/assets/screenshots/loginpage.png" width="860" alt="RISE login page" />
+<img src="docs/screenshots/loginpage.png" width="860" alt="RISE login page" />
 
 </div>
 
 ---
 
-## Features
+## Concepts used
 
-**Live market ticker** — Infinite marquee of NSE large-caps with directional
-colour coding, driven by a single data array.
-
-**Scroll-reveal sections** — One `IntersectionObserver` for the whole page,
-adding `.visible` as sections enter the viewport.
-
-**Anchor navigation** — Native fragment links (`#about`, `#reviews`, `#graphs`)
-with smooth scrolling, deliberately kept outside the router.
-
-**Design tokens** — Every colour, radius, and surface is a CSS custom property in
-`global.css`, so the whole palette changes from one block.
-
-**Demo authentication** — Sign in, create an account, or use the demo login.
-Session state persists through `localStorage`.
-
-**Embedded charts** — TradingView mini symbol overviews, mounted per symbol.
+| Concept | Where |
+| :--- | :--- |
+| Components and props | every page is built from small components (`src/components/`) |
+| Client-side routing | React Router, `src/App.jsx` |
+| Protected routes | Welcome and Dashboard redirect to Login when signed out |
+| Context API | `AuthContext` shares the signed-in user |
+| Controlled forms and validation | Login and Create Account forms |
+| Custom hooks | `useLocalStorage`, `useDebounce`, `usePortfolio` |
+| Debouncing | Dashboard stock search waits until typing stops |
+| Filtering and sorting | category filter, price high to low / low to high |
+| Pagination | Dashboard stock table, 5 rows per page |
+| Modal | risk notice on the Dashboard |
+| localStorage | account, session and demo portfolio survive a page refresh |
+| Scroll animation | `IntersectionObserver` on the Home page |
 
 ---
 
-## Tech Stack
+## Tech stack
 
 | Layer | Choice |
 | :--- | :--- |
 | Framework | React 19 |
-| Build | Vite 8 |
+| Build tool | Vite 8 |
 | Routing | React Router 7 |
 | Styling | Plain CSS with custom properties |
 | Icons | Bootstrap Icons |
-| Type | Bebas Neue · Plus Jakarta Sans |
+| Fonts | Bebas Neue, Plus Jakarta Sans |
 | Charts | TradingView embed widgets |
 
 ---
 
-## Getting Started
+## Getting started
 
 Requires Node.js 20 or newer.
 
@@ -95,125 +95,83 @@ npm install
 npm run dev
 ```
 
-Dev server runs at **http://localhost:5173**.
+Open **http://localhost:5173**. Demo login: `demo@rise.com` / `demo1234`.
 
 | Command | Description |
 | :--- | :--- |
-| `npm run dev` | Dev server with hot module replacement |
+| `npm run dev` | Development server with hot reload |
 | `npm run build` | Production build into `dist/` |
 | `npm run preview` | Serve the production build locally |
-| `npm run lint` | Run ESLint across the project |
+| `npm run lint` | Check the code with ESLint |
 
 ---
 
-## Project Structure
+## Project structure
 
 ```txt
-rise/
-├── public/
-│   └── assets/              Images, video, logo, screenshots
-│
+RISE/
+├── docs/screenshots/        README images
+├── public/assets/           Logo, images, background video
 ├── src/
-│   ├── main.jsx             Entry — router provider + global styles
-│   ├── app.jsx              Route table
-│   │
-│   ├── pages/
-│   │   ├── Home.jsx         Landing page
-│   │   ├── Login.jsx        Login / register
-│   │   └── Welcome.jsx      Post-login app shell
-│   │
+│   ├── main.jsx             Entry: router, auth provider, global styles
+│   ├── App.jsx              Route table
+│   ├── context/             AuthContext (signed-in user)
+│   ├── data/                Sample stock list and page content
+│   ├── hooks/               useLocalStorage, useDebounce, usePortfolio
+│   ├── utils/               Formatting and form validation helpers
 │   ├── components/
-│   │   └── TradingViewWidget.jsx
-│   │
-│   └── styles/
-│       ├── global.css       Tokens, reset, shared primitives
-│       ├── homepage.css
-│       ├── login.css
-│       └── welcomepage.css
-│
-├── index.html               Shell — fonts, icons, root node
+│   │   ├── ui/              Reusable pieces: Modal, Pagination, StatCard, PriceChange, FormField
+│   │   ├── layout/          Layout, Sidebar, ProtectedRoutes
+│   │   ├── home/            Home page sections
+│   │   ├── auth/            Login and signup forms
+│   │   ├── welcome/         Welcome page sections
+│   │   └── dashboard/       Dashboard panels
+│   ├── pages/               Home, Login, Welcome, Dashboard
+│   └── styles/              global.css plus one stylesheet per page
+├── index.html
 └── vite.config.js
 ```
 
-Each page imports its own stylesheet; Vite bundles them into one file at build
-time. The split is for maintainability, not delivery.
-
 ### Routes
 
-| Path | Component | Notes |
+| Path | Page | Access |
 | :--- | :--- | :--- |
-| `/` | `Home` | Public landing page |
-| `/login` | `Login` | Sign in / create account |
-| `/welcome` | `Welcome` | Post-login shell |
+| `/` | Home | public |
+| `/login` | Login | public |
+| `/welcome` | Welcome | signed in |
+| `/dashboard` | Dashboard | signed in |
 
 ---
 
 ## Status
 
-| Area | Markup | Styles | Notes |
-| :--- | :----: | :----: | :--- |
-| Design tokens & reset | — | ✅ | `global.css` — palette, type, layout primitives |
-| Home page | ✅ | ✅ | Hero, ticker, features, about, testimonials, markets, footer |
-| Login / Register | ✅ | ✅ | Split-panel layout with working auth flow |
-| Welcome — app shell | ✅ | ✅ | Fixed sidebar, user badge, nav, sign out |
-| Welcome — content | ⬜ | ⬜ | Hero, account stats, movers, tips |
-| Dashboard | ⬜ | ⬜ | Planned |
-| Portfolio & watchlist | ⬜ | ⬜ | Planned |
+| Area | Status |
+| :--- | :--- |
+| Home page | ✅ done, being split into components |
+| Login / Register | ✅ working, form refactor in progress |
+| Shared data, hooks and UI components | ✅ done |
+| Shared layout and protected routes | 🔄 in progress |
+| Welcome content | 🔄 in progress |
+| Dashboard | 🔄 in progress |
+
+### Later
+
+- Buy and sell orders in the demo portfolio
+- Live prices from a market data API
+- Trading coach chat
+- Missions and stock detail pages
 
 ---
 
-## Roadmap
+## Team
 
-- [ ] Welcome dashboard — virtual portfolio and watchlist
-- [ ] AI Trading Coach powered by the Gemini API
-- [ ] Live market quotes via Alpha Vantage
-- [ ] Debounced symbol search with dropdown results
-- [ ] Candlestick chart integration
-- [ ] Trade analytics and performance history
-- [ ] Backend authentication and persistent storage
+| Member | Area |
+| :--- | :--- |
+| **Shivansh** (lead) | Shared data, hooks and UI components, Dashboard, reviews and merges |
+| **Pari** | Routing, layout, authentication, Login page |
+| **Aditya** | Home page, Welcome page |
 
----
-
-## Deployment
-
-The build deploys to GitHub Pages as a static SPA. Three settings matter:
-
-1. **`base`** in `vite.config.js` must match the repository name — `"/RISE/"`.
-2. **`basename`** on `BrowserRouter` must be `import.meta.env.BASE_URL`, or no
-   route matches once served from a subpath.
-3. **`404.html`** must be a copy of `index.html`, so client-side routes survive a
-   direct visit or a refresh.
-
-Verify a production build locally before pushing:
-
-```bash
-npm run build && npm run preview
-```
-
----
-
-## Contributing
-
-Work happens on personal branches, merged into `main` by pull request.
-
-```bash
-git checkout -b your_branch
-git commit -m "Describe the change"
-git push -u origin your_branch
-```
-
-**Conventions**
-
-- One stylesheet per page — shared primitives stay in `global.css`
-- Reference colours through custom properties, never raw hex
-- Run `npm run lint` before opening a pull request
-- Sync with `main` regularly: `git fetch origin && git merge origin/main`
-
----
-
-## License
-
-Released under the MIT License.
+Branches, commit messages and pull requests follow [CONTRIBUTING.md](CONTRIBUTING.md).
 
 <div align="center">
 <br />
