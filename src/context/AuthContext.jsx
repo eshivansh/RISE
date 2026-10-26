@@ -19,7 +19,6 @@ export function AuthProvider({ children }) {
   function logoutUser() {
     setUser(null);
     localStorage.removeItem("rise_loggedIn");
-    localStorage.removeItem("rise_user");
   }
 
   return (
