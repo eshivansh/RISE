@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext.jsx";
 import "../styles/login.css";
 
 
 export default function Login() {
 
   const goTo = useNavigate();
+  const { loginUser } = useAuth();
   const [tab, setTab] = useState("login");
 
   useEffect(function () {
@@ -13,6 +15,7 @@ export default function Login() {
       localStorage.setItem("rise_user", JSON.stringify({ name: "Demo Trader", email: "demo@rise.com", pass: "demo1234" }));
     }
   }, []);
+
 
   const [login, setLogin] = useState({ email: "", pass: "" });
   const [signup, setSignup] = useState({ name: "", email: "", pass: "", confirm: "" });
@@ -72,8 +75,9 @@ export default function Login() {
     }
 
     setLoginError({ email: "", pass: "" });
-    localStorage.setItem("rise_loggedIn", "true");
+    loginUser(saved);
     goTo("/welcome");
+
   }
 
   function doSignup() {
@@ -104,8 +108,9 @@ export default function Login() {
     }
 
     setSignupError({ name: "", email: "", pass: "", confirm: "" });
-    localStorage.setItem("rise_user", JSON.stringify({ name: name, email: email, pass: pass }));
-    localStorage.setItem("rise_loggedIn", "true");
+
+    loginUser({ name: name, email: email, pass: pass });
+
     goTo("/welcome");
   }
 
@@ -115,22 +120,23 @@ export default function Login() {
     }
   }
 
-  function demoLogin() {
-    localStorage.setItem("rise_user", JSON.stringify({ name: "Demo Trader", email: "demo@rise.com", pass: "demo1234" }));
-    localStorage.setItem("rise_loggedIn", "true");
-    goTo("/welcome");
-  }
+ function demoLogin() {
+  loginUser({
+    name: "Demo Trader",
+    email: "demo@rise.com",
+    pass: "demo1234"
+  });
 
+  goTo("/welcome");
+}
 
 
     return (
     <div className="loginPage">
-      <div className="backgroundGlow"></div>
-      <div className="grid"></div>
-
+    
       <header className="header">
         <Link to="/" className="logo">
-          <img src="./public/assets/image.png" alt="logo" />
+          <img src="./assets/image.png" alt="logo" />
           <span>RISE</span>
         </Link>
         <Link to="/" className="backLink">
