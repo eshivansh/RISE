@@ -1,5 +1,12 @@
 export function money(amount) {
-  return "$" + amount.toFixed(2);
+  const text = Math.abs(amount).toLocaleString("en-US", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+  if (amount < 0) {
+    return "-$" + text;
+  }
+  return "$" + text;
 }
 
 export function percent(value) {
