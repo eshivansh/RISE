@@ -3,7 +3,10 @@ import { Link } from "react-router-dom";
 import "../styles/homepage.css";
 import TradingViewWidget from "../components/TradingViewWidget.jsx";
 
-import { tickers, features as boxes, reviews, charts } from "../data/homeContent.js";
+import { features as boxes, reviews, charts } from "../data/homeContent.js";
+import HomeNavbar from "../components/home/HomeNavbar.jsx";
+import Hero from "../components/home/Hero.jsx";
+import Ticker from "../components/home/Ticker.jsx";
 
 export default function Home() {
   useEffect(function () {
@@ -23,23 +26,6 @@ export default function Home() {
       watcher.disconnect();
     };
   }, []);
-
-  let tickerRows = [];
-  let twice = tickers.concat(tickers);
-  for (let i = 0; i < twice.length; i++) {
-    let t = twice[i];
-    let color = "dn";
-    if (t.up) {
-      color = "up";
-    }
-    tickerRows.push(
-      <div className="ticker-item" key={i}>
-        <span className="ticker-sym">{t.sym}</span>
-        <span className="ticker-price">₹{t.price}</span>
-        <span className={"ticker-chg " + color}>{t.chg}</span>
-      </div>
-    );
-  }
 
   let boxRows = [];
   for (let i = 0; i < boxes.length; i++) {
@@ -81,39 +67,9 @@ export default function Home() {
 
   return (
     <div className="home-page">
-      <header className="header-blur">
-        <section className="flex">
-          <Link to="/" className="brand">
-            <img src="/assets/image.png" alt="logo" />
-            <span className="brand-title">RISE</span>
-          </Link>
-          <nav className="nav">
-            <a href="#home">Home</a>
-            <a href="#about">About</a>
-            <a href="#reviews">Reviews</a>
-            <a href="#graphs">Markets</a>
-          </nav>
-          <Link to="/login" className="btn-cta">Get started</Link>
-        </section>
-      </header>
-
-      <div className="home" id="home">
-        <video id="bg-video" autoPlay loop muted playsInline>
-          <source src="/assets/Video2.mp4" type="video/mp4" />
-        </video>
-
-        <div className="hero-new reveal">
-          <h1 className="hero-title-new">TRADE THE <br /><span className="accent">FUTURE</span></h1>
-          <p className="hero-sub-new">Master the markets with institutional-grade AI, lightning-fast execution, and a community of elite traders.</p>
-          <div className="hero-btns">
-            <Link to="/login" className="cta-primary">Launch Terminal</Link>
-          </div>
-        </div>
-
-        <div className="ticker-wrap">
-          <div className="ticker-track" id="ticker">{tickerRows}</div>
-        </div>
-      </div>
+      <HomeNavbar />
+      <Hero />
+      <Ticker />
 
       <section className="services reveal">
         <p className="section-label">Platform Features</p>
