@@ -1,15 +1,22 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { findStock } from "../../data/stocks.js";
 import { money } from "../../utils/format.js";
 import usePortfolio from "../../hooks/usePortfolio.js";
+import { buy, sell } from "../../store/portfolioSlice.js";
 
 export default function OrderPanel({ symbol }) {
-  const { cash } = usePortfolio();
+  const dispatch = useDispatch();
+  const { cash, holdings } = usePortfolio();
   const [qty, setQty] = useState(1);
-  const [note, setNote] = useState("Pick a stock and set a quantity.");
+  const [note, setNote] = useState("Pick a stock, set a quantity, then Buy or Sell.");
 
   const stock = findStock(symbol);
   const cost = stock.price * qty;
+  let owned = 0;
+  if (holdings[symbol]) {
+    owned = holdings[symbol].qty;
+  }
 
   function handleQty(e) {
     const value = Number(e.target.value);
@@ -18,9 +25,22 @@ export default function OrderPanel({ symbol }) {
     }
   }
 
-  // Order panel is display only for now; real orders come later.
-  function showComingSoon() {
-    setNote("Placing orders is coming soon. Nothing was bought or sold.");
+  function handleBuy() {
+    if (cost > cash) {
+      setNote("Not enough cash for this order.");
+      return;
+    }
+    dispatch(buy({ symbol: symbol, qty: qty, price: stock.price }));
+    setNote("Bought " + qty + " " + symbol + " at " + money(stock.price) + ".");
+  }
+
+  function handleSell() {
+    if (qty > owned) {
+      setNote("You only own " + owned + " " + symbol + ".");
+      return;
+    }
+    dispatch(sell({ symbol: symbol, qty: qty, price: stock.price }));
+    setNote("Sold " + qty + " " + symbol + " at " + money(stock.price) + ".");
   }
 
   return (
@@ -31,6 +51,7 @@ export default function OrderPanel({ symbol }) {
       <div className="order-body">
         <div className="order-row"><span>Stock</span><strong>{symbol}</strong></div>
         <div className="order-row"><span>Price</span><strong>{money(stock.price)}</strong></div>
+        <div className="order-row"><span>You own</span><strong>{owned}</strong></div>
 
         <label className="field">
           <span>Quantity</span>
@@ -41,8 +62,8 @@ export default function OrderPanel({ symbol }) {
         <div className="order-row"><span>Cash available</span><strong>{money(cash)}</strong></div>
 
         <div className="buy-sell">
-          <button type="button" className="btn-buy" onClick={showComingSoon}>Buy</button>
-          <button type="button" className="btn-sell" onClick={showComingSoon}>Sell</button>
+          <button type="button" className="btn-buy" onClick={handleBuy}>Buy</button>
+          <button type="button" className="btn-sell" onClick={handleSell}>Sell</button>
         </div>
 
         <div className="order-note">{note}</div>

@@ -1,11 +1,9 @@
-import useLocalStorage from "./useLocalStorage.js";
+import { useSelector } from "react-redux";
 import { findStock } from "../data/stocks.js";
-
-export const START_CASH = 100000;
+import { START_CASH } from "../store/portfolioSlice.js";
 
 export default function usePortfolio() {
-  const [cash, setCash] = useLocalStorage("rise_cash", START_CASH);
-  const [holdings, setHoldings] = useLocalStorage("rise_holdings", {});
+  const { cash, holdings } = useSelector((state) => state.portfolio);
 
   const symbols = Object.keys(holdings);
 
@@ -20,10 +18,5 @@ export default function usePortfolio() {
   const equity = cash + invested;
   const profit = equity - START_CASH;
 
-  function reset() {
-    setCash(START_CASH);
-    setHoldings({});
-  }
-
-  return { cash, holdings, equity, profit, positions: symbols.length, reset };
+  return { cash, holdings, equity, profit, positions: symbols.length };
 }
