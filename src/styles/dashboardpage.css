@@ -457,3 +457,68 @@
         gap: 8px;
     }
 }
+
+/* --- Watchlist and portfolio actions --------------------------- */
+
+.watch-item {
+    display: flex;
+    gap: 6px;
+}
+
+.watch-item .watch-row {
+    flex: 1;
+    min-width: 0;
+}
+
+.watch-remove,
+.watch-add {
+    width: 30px;
+    flex-shrink: 0;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    background: var(--surface2);
+    color: var(--muted);
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.watch-remove:hover {
+    color: var(--red);
+    border-color: var(--red);
+}
+
+.watch-add {
+    height: 28px;
+}
+
+.watch-add:hover:not(:disabled) {
+    color: var(--cyan);
+    border-color: var(--cyan);
+}
+
+.watch-add:disabled {
+    color: var(--green);
+    cursor: default;
+}
+
+.watch-empty {
+    padding: 12px;
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.btn-reset {
+    padding: 6px 12px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    background: var(--surface2);
+    color: var(--text);
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-reset:hover {
+    border-color: var(--red);
+    color: var(--red);
+}

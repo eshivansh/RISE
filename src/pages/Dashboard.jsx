@@ -10,7 +10,7 @@ import "../styles/dashboardpage.css";
 const steps = [
   "Pick a stock from the watchlist or the table",
   "Read its chart",
-  "Set a quantity in the order panel",
+  "Buy or sell in the order panel",
   "Track your portfolio below",
 ];
 

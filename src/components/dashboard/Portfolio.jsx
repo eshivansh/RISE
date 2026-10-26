@@ -1,8 +1,11 @@
 import { findStock } from "../../data/stocks.js";
 import { money } from "../../utils/format.js";
+import { useDispatch } from "react-redux";
 import usePortfolio from "../../hooks/usePortfolio.js";
+import { reset } from "../../store/portfolioSlice.js";
 
 export default function Portfolio() {
+  const dispatch = useDispatch();
   const { cash, holdings, equity, profit } = usePortfolio();
   const symbols = Object.keys(holdings);
 
@@ -10,6 +13,9 @@ export default function Portfolio() {
     <section className="surface portfolio-panel">
       <div className="section-title">
         <h2>Demo Portfolio</h2>
+        <button type="button" className="btn-reset" onClick={() => dispatch(reset())}>
+          Reset account
+        </button>
       </div>
 
       <div className="stats-row">
@@ -43,7 +49,7 @@ export default function Portfolio() {
             })}
             {symbols.length === 0 && (
               <tr className="empty-row">
-                <td colSpan={5}>No positions yet. Buying stocks will be added soon.</td>
+                <td colSpan={5}>No positions yet. Buy a stock in the order panel to start.</td>
               </tr>
             )}
           </tbody>

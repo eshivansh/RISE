@@ -60,12 +60,13 @@ RISE is a university group project. It is a single-page React app with four page
 | Protected routes | Welcome and Dashboard redirect to Login when signed out |
 | Context API | `AuthContext` shares the signed-in user |
 | Controlled forms and validation | Login and Create Account forms |
-| Custom hooks | `useLocalStorage`, `useDebounce`, `usePortfolio` |
+| Custom hooks | `useDebounce`, `usePortfolio` |
+| Redux Toolkit | `src/store/`: portfolio (cash, holdings, buy, sell, reset) and watchlist slices |
 | Debouncing | Dashboard stock search waits until typing stops |
 | Filtering and sorting | category filter, price high to low / low to high |
 | Pagination | Dashboard stock table, 5 rows per page |
 | Modal | risk notice on the Dashboard |
-| localStorage | account, session and demo portfolio survive a page refresh |
+| localStorage | account, session and the Redux store survive a page refresh |
 | Scroll animation | `IntersectionObserver` on the Home page |
 
 ---
@@ -75,6 +76,7 @@ RISE is a university group project. It is a single-page React app with four page
 | Layer | Choice |
 | :--- | :--- |
 | Framework | React 19 |
+| State | Context API (login), Redux Toolkit (portfolio, watchlist) |
 | Build tool | Vite 8 |
 | Routing | React Router 7 |
 | Styling | Plain CSS with custom properties |
@@ -117,7 +119,8 @@ RISE/
 │   ├── App.jsx              Route table
 │   ├── context/             AuthContext (signed-in user)
 │   ├── data/                Sample stock list and page content
-│   ├── hooks/               useLocalStorage, useDebounce, usePortfolio
+│   ├── store/               Redux store, portfolio and watchlist slices
+│   ├── hooks/               useDebounce, usePortfolio
 │   ├── utils/               Formatting and form validation helpers
 │   ├── components/
 │   │   ├── ui/              Reusable pieces: Modal, Pagination, StatCard, PriceChange, FormField
@@ -156,7 +159,6 @@ RISE/
 
 ### Later
 
-- Buy and sell orders in the demo portfolio
 - Live prices from a market data API
 - Trading coach chat
 - Missions and stock detail pages

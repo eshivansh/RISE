@@ -1,13 +1,17 @@
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { stocks, categories } from "../../data/stocks.js";
 import { money } from "../../utils/format.js";
 import useDebounce from "../../hooks/useDebounce.js";
+import { addToWatchlist } from "../../store/watchlistSlice.js";
 import PriceChange from "../ui/PriceChange.jsx";
 import Pagination from "../ui/Pagination.jsx";
 
 const PAGE_SIZE = 5;
 
 export default function StockTable({ onPick }) {
+  const dispatch = useDispatch();
+  const watched = useSelector((state) => state.watchlist.symbols);
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("All");
   const [sort, setSort] = useState("none");
@@ -92,7 +96,7 @@ export default function StockTable({ onPick }) {
       <div className="table-wrap">
         <table>
           <thead>
-            <tr><th>Symbol</th><th>Name</th><th>Category</th><th>Price</th><th>Change</th></tr>
+            <tr><th>Symbol</th><th>Name</th><th>Category</th><th>Price</th><th>Change</th><th>Watch</th></tr>
           </thead>
           <tbody>
             {rows.map((s) => (
@@ -106,11 +110,22 @@ export default function StockTable({ onPick }) {
                 <td>{s.category}</td>
                 <td>{money(s.price)}</td>
                 <td><PriceChange value={s.change} /></td>
+                <td>
+                  <button
+                    type="button"
+                    className="watch-add"
+                    disabled={watched.includes(s.symbol)}
+                    aria-label={"Add " + s.symbol + " to watchlist"}
+                    onClick={() => dispatch(addToWatchlist(s.symbol))}
+                  >
+                    {watched.includes(s.symbol) ? "✓" : "+"}
+                  </button>
+                </td>
               </tr>
             ))}
             {rows.length === 0 && (
               <tr className="empty-row">
-                <td colSpan={5}>
+                <td colSpan={6}>
                   {search ? 'No stocks match "' + search + '".' : "No stocks in this category."}
                 </td>
               </tr>
