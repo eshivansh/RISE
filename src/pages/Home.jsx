@@ -3,10 +3,14 @@ import { Link } from "react-router-dom";
 import "../styles/homepage.css";
 import TradingViewWidget from "../components/TradingViewWidget.jsx";
 
-import { features as boxes, reviews, charts } from "../data/homeContent.js";
+import { charts } from "../data/homeContent.js";
 import HomeNavbar from "../components/home/HomeNavbar.jsx";
 import Hero from "../components/home/Hero.jsx";
 import Ticker from "../components/home/Ticker.jsx";
+import Features from "../components/home/Features.jsx";
+import About from "../components/home/About.jsx";
+import Reviews from "../components/home/Reviews.jsx";
+import Stats from "../components/home/Stats.jsx";
 
 export default function Home() {
   useEffect(function () {
@@ -27,33 +31,6 @@ export default function Home() {
     };
   }, []);
 
-  let boxRows = [];
-  for (let i = 0; i < boxes.length; i++) {
-    let b = boxes[i];
-    boxRows.push(
-      <div className="box" key={b.title}>
-        <i className={"bi " + b.icon}></i>
-        <h3>{b.title}</h3>
-        <p>{b.text}</p>
-      </div>
-    );
-  }
-
-  let reviewRows = [];
-  for (let i = 0; i < reviews.length; i++) {
-    let r = reviews[i];
-    reviewRows.push(
-      <div className="review-card" key={i}>
-        <div className="review-user">
-          <img src={"/assets/" + r.img} alt={r.name} />
-          <div><h4>{r.name}</h4></div>
-        </div>
-        <hr className="review-divider" />
-        <p className="review-text">{r.text}</p>
-      </div>
-    );
-  }
-
   let chartRows = [];
   for (let i = 0; i < charts.length; i++) {
     let c = charts[i];
@@ -70,46 +47,10 @@ export default function Home() {
       <HomeNavbar />
       <Hero />
       <Ticker />
-
-      <section className="services reveal">
-        <p className="section-label">Platform Features</p>
-        <h2 className="section-heading">Everything you need to <em>grow</em></h2>
-        <div className="box-container">{boxRows}</div>
-      </section>
-
-      <div className="about-new" id="about">
-        <div className="container">
-          <p className="section-label reveal">Our Mission</p>
-          <div className="about-grid">
-            <div className="about-text reveal">
-              <h2 className="section-heading">Built by traders, <br /><em>for traders</em></h2>
-              <p>RISE was built from the ground up with one belief: that sophisticated market tools shouldn't be reserved for Wall Street. We've democratized access to institutional-grade intelligence.</p>
-              <p>From AI-driven trade coaching to real-time market feeds, every feature is engineered to give you an edge — whether you're making your first trade or your ten-thousandth.</p>
-              <p>Our platform adapts to you. The more you use RISE, the smarter it gets at anticipating your needs, flagging your opportunities, and protecting your positions.</p>
-              <Link to="/login" className="btn-cta" style={{ display: "inline-block", marginTop: "24px" }}>Join RISE Today</Link>
-            </div>
-            <div className="about-visual reveal">
-              <img src="/assets/image2.jpeg" alt="Trading platform" />
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <section className="reviews reveal" id="reviews">
-        <p className="section-label">Testimonials</p>
-        <h2 className="section-heading">Loved by <em>traders</em> worldwide</h2>
-        <div className="reviews-slider">
-          <div className="reviews-track">{reviewRows}</div>
-        </div>
-      </section>
-
-      <div className="numbers-section reveal">
-        <div className="numbers-inner">
-          <div className="num-box"><div className="num-val">500K+</div><div className="num-label">Active Traders</div></div>
-          <div className="num-box"><div className="num-val">₹100 Cr</div><div className="num-label">Volume Traded</div></div>
-          <div className="num-box"><div className="num-val">99.9%</div><div className="num-label">Uptime</div></div>
-        </div>
-      </div>
+      <Features />
+      <About />
+      <Reviews />
+      <Stats />
 
       <div className="stocks" id="graphs">
         <div className="container">
