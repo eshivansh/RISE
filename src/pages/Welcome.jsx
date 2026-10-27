@@ -3,6 +3,7 @@ import WelcomeHero from "../components/welcome/WelcomeHero.jsx";
 import WelcomeStats from "../components/welcome/WelcomeStats.jsx";
 import MarketMovers from "../components/welcome/MarketMovers.jsx";
 import MyWatchlist from "../components/welcome/MyWatchlist.jsx";
+import TradingTips from "../components/welcome/TradingTips.jsx";
 
 export default function Welcome() {
   return (
@@ -11,7 +12,10 @@ export default function Welcome() {
       <WelcomeStats />
       <div className="welcome-grid">
         <MarketMovers />
-        <MyWatchlist />
+        <div className="welcome-column">
+          <MyWatchlist />
+          <TradingTips />
+        </div>
       </div>
     </div>
   );

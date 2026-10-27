@@ -310,3 +310,49 @@
     gap: 24px;
     align-items: start;
 }
+
+.tips-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.tip-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 16px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    background: var(--surface2);
+}
+
+.tip-card i {
+    font-size: 20px;
+    color: var(--cyan);
+    margin-top: 2px;
+}
+
+.tip-content {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.tip-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #fff;
+}
+
+.tip-text {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.4;
+}
+
+.welcome-column {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
