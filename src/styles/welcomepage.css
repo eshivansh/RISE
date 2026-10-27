@@ -125,3 +125,234 @@
 /* ============================================
    Page content styles go below this line.
    ============================================ */
+
+.welcome-page {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.welcome-hero {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.welcome-title {
+    font-size: 32px;
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: -0.5px;
+}
+
+.welcome-subtitle {
+    color: var(--muted);
+    font-size: 15px;
+}
+
+.welcome-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+}
+
+.welcome-panel {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.panel-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+}
+
+.btn-open-trading {
+    background: var(--cyan);
+    color: #000;
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 8px 16px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.btn-open-trading:hover {
+    opacity: 0.9;
+}
+
+.movers-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.mover-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    background: var(--surface2);
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.mover-row:hover {
+    background: var(--surface3);
+    border-color: var(--muted);
+}
+
+.mover-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.mover-sym {
+    font-weight: 700;
+    color: #fff;
+    font-size: 14px;
+}
+
+.mover-name {
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.mover-prices {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.mover-price {
+    font-weight: 600;
+    color: #fff;
+    font-size: 14px;
+}
+
+.watchlist-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.watchlist-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    background: var(--surface2);
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.watchlist-row:hover {
+    background: var(--surface3);
+    border-color: var(--muted);
+}
+
+.watchlist-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.watchlist-sym {
+    font-weight: 700;
+    color: #fff;
+    font-size: 14px;
+}
+
+.watchlist-name {
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.watchlist-prices {
+    display: flex;
+    align-items: center;
+}
+
+.watchlist-price {
+    font-weight: 600;
+    color: #fff;
+    font-size: 14px;
+}
+
+.empty-message {
+    color: var(--muted);
+    font-size: 14px;
+    padding: 16px 0;
+}
+
+.welcome-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 24px;
+    align-items: start;
+}
+
+.tips-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.tip-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 16px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    background: var(--surface2);
+}
+
+.tip-card i {
+    font-size: 20px;
+    color: var(--cyan);
+    margin-top: 2px;
+}
+
+.tip-content {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.tip-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #fff;
+}
+
+.tip-text {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.4;
+}
+
+.welcome-column {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
