@@ -194,7 +194,7 @@
     height: 48px;
 
     
-    padding: 0 70px 0 14px;
+    padding: 0 70px 0 40px;
 
     background: var(--panel2);
     border: 1px solid var(--line);
@@ -249,6 +249,34 @@
 }
 
 .inputWrap button:hover {
+    color: var(--accent);
+}
+
+.field-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--muted);
+    font-size: 15px;
+    pointer-events: none;
+}
+
+.field-icon-right {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    background: transparent;
+    color: var(--muted);
+    font-size: 16px;
+    cursor: pointer;
+    padding: 4px;
+    transition: color 0.2s;
+}
+
+.field-icon-right:hover {
     color: var(--accent);
 }
 

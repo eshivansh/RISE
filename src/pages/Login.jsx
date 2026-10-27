@@ -1,36 +1,19 @@
-import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext.jsx";
+import { useState } from "react";
+import { Link, Navigate } from "react-router-dom";
+import { useAuth } from "../context/useAuth.js";
 import "../styles/login.css";
-
+import AuthInfoPanel from "../components/auth/AuthInfoPanel.jsx";
+import LoginForm from "../components/auth/LoginForm.jsx";
+import SignupForm from "../components/auth/SignupForm.jsx";
 
 export default function Login() {
-
-  const goTo = useNavigate();
-  const { loginUser } = useAuth();
+  const { user } = useAuth();
   const [tab, setTab] = useState("login");
 
-  useEffect(function () {
-    if (!localStorage.getItem("rise_user")) {
-      localStorage.setItem("rise_user", JSON.stringify({ name: "Demo Trader", email: "demo@rise.com", pass: "demo1234" }));
-    }
-  }, []);
-
-
-  const [login, setLogin] = useState({ email: "", pass: "" });
-  const [signup, setSignup] = useState({ name: "", email: "", pass: "", confirm: "" });
-
-  const [loginError, setLoginError] = useState({ email: "", pass: "" });
-  const [signupError, setSignupError] = useState({ name: "", email: "", pass: "", confirm: "" });
-
-  const [show, setShow] = useState({ lPass: false, rPass: false, rConfirm: false });
-
-
-  function flip(key) {
-    let copy = { ...show };
-    copy[key] = !show[key];
-    setShow(copy);
+  if (user) {
+    return <Navigate to="/welcome" replace />;
   }
+
 
   function tabClass(name) {
     if (tab === name) {
@@ -39,131 +22,18 @@ export default function Login() {
     return "auth-tab";
   }
 
-  function errorClass(msg) {
-    if (msg) {
-      return "field-error visible";
-    }
-    return "field-error";
-  }
-  
-
-
-  function boxType(on) {
-    if (on) {
-      return "text";
-    }
-    return "password";
-  }
-
-  function doLogin() {
-    let email = login.email.trim();
-    let pass = login.pass.trim();
-
-    if (!email) {
-      setLoginError({ email: "Email is required", pass: "" });
-      return;
-    }
-    if (!pass) {
-      setLoginError({ email: "", pass: "Password is required" });
-      return;
-    }
-
-    let saved = JSON.parse(localStorage.getItem("rise_user"));
-    if (!saved || saved.email !== email || saved.pass !== pass) {
-      setLoginError({ email: "", pass: "Invalid email or password" });
-      return;
-    }
-
-    setLoginError({ email: "", pass: "" });
-    loginUser(saved);
-    goTo("/welcome");
-
-  }
-
-  function doSignup() {
-    let name = signup.name.trim();
-    let email = signup.email.trim();
-    let pass = signup.pass;
-    let confirm = signup.confirm;
-
-    if (!name) {
-      setSignupError({ name: "Full name is required", email: "", pass: "", confirm: "" });
-      return;
-    }
-    if (!email) {
-      setSignupError({ name: "", email: "Email is required", pass: "", confirm: "" });
-      return;
-    }
-    if (!pass) {
-      setSignupError({ name: "", email: "", pass: "Password is required", confirm: "" });
-      return;
-    }
-    if (pass.length < 8) {
-      setSignupError({ name: "", email: "", pass: "At least 8 characters", confirm: "" });
-      return;
-    }
-    if (pass !== confirm) {
-      setSignupError({ name: "", email: "", pass: "", confirm: "Passwords do not match" });
-      return;
-    }
-
-    setSignupError({ name: "", email: "", pass: "", confirm: "" });
-
-    loginUser({ name: name, email: email, pass: pass });
-
-    goTo("/welcome");
-  }
-
-  function onEnter(e, action) {
-    if (e.key === "Enter") {
-      action();
-    }
-  }
-
- function demoLogin() {
-  loginUser({
-    name: "Demo Trader",
-    email: "demo@rise.com",
-    pass: "demo1234"
-  });
-
-  goTo("/welcome");
-}
-
-
-    return (
+  return (
     <div className="loginPage">
-    
       <header className="header">
         <Link to="/" className="logo">
           <img src="./assets/image.png" alt="logo" />
           <span>RISE</span>
         </Link>
-        <Link to="/" className="backLink">
-           Back to Home
-        </Link>
+        <Link to="/" className="backLink">Back to Home</Link>
       </header>
 
       <main>
-        <div className="leftSide">
-          
-          <h1>Your wealth<br /><span>starts here.</span></h1>
-          
-          <div className="features">
-            <div className="feature">
-             
-              <div className="featureText"><strong>Live Market Data</strong></div>
-            </div>
-            <div className="feature">
-            
-              <div className="featureText"><strong>AI Smart Advisor</strong></div>
-            </div>
-            <div className="feature">
-            
-              <div className="featureText"><strong>Bank-Grade Security</strong></div>
-            </div>
-          </div>
-        </div>
+        <AuthInfoPanel />
 
         <div className="rightPanel">
           <div className="formCard">
@@ -172,154 +42,10 @@ export default function Login() {
               <button className={tabClass("register")} onClick={() => setTab("register")}>Create Account</button>
             </div>
 
-            {tab === "login" && (
-              <div>
-                <h2>Welcome back</h2>
-                <p className="sub">Don't have an account? <a href="#" onClick={(e) => { e.preventDefault(); setTab("register"); }}>Sign up free</a></p>
-
-                <div className="fGroup">
-                  <label htmlFor="lEmail">Email Address</label>
-                  <div className="inputWrap">
-                    
-                    <input
-                      type="email"
-                      id="lEmail"
-                      placeholder="you@example.com"
-                      maxLength={100}
-                      value={login.email}
-                      onChange={(e) => setLogin({ ...login, email: e.target.value })}
-                      onKeyDown={(e) => onEnter(e, doLogin)}
-                    />
-                  </div>
-                  <div className={errorClass(loginError.email)}><span>{loginError.email}</span></div>
-                </div>
-
-                <div className="fGroup">
-                  <label htmlFor="lPass">Password</label>
-                  <div className="inputWrap">
-                  
-                    <input
-                      type={boxType(show.lPass)}
-                      id="lPass"
-                      placeholder="Enter your password"
-                      maxLength={100}
-                      value={login.pass}
-                      onChange={(e) => setLogin({ ...login, pass: e.target.value })}
-                      onKeyDown={(e) => onEnter(e, doLogin)}
-                    />
-                    <button type="button" onClick={() => flip("lPass")}>{show.lPass ? "Hide" : "Show"}</button>
-                   
-                  </div>
-                   <div className={errorClass(loginError.pass)}><span>{loginError.pass}</span></div> 
-                </div>
-
-                <div className="options">
-                  <label className="remember"><input type="checkbox" /> Remember me</label>
-                  <a href="#" className="forgot" onClick={(e) => e.preventDefault()}>Forgot password?</a>
-                </div>
-
-                <button className="submitButton" onClick={doLogin}>
-                  <span className="textButton">Login to RISE</span>
-                </button>
-
-                <div className="demo">Demo login → <strong>demo@rise.com</strong> / <strong>demo1234</strong></div>
-
-                <div className="divider">or continue with</div>
-                <div className="socials">
-                  <button className="socialButton" onClick={demoLogin}> Google</button>
-                  <button className="socialButton" onClick={demoLogin}> Apple</button>
-                </div>
-              </div>
-            )}
-
-            {tab === "register" && (
-              <div>
-                <h2>Create account</h2>
-                <p className="sub">Already have one? <a href="#" onClick={(e) => { e.preventDefault(); setTab("login"); }}>Sign in</a></p>
-
-                <div className="fGroup">
-                  <label htmlFor="rName">Full Name</label>
-                  <div className="inputWrap">
-                    
-                    <input
-                      type="text"
-                      id="rName"
-                      placeholder="John Doe"
-                      maxLength={80}
-                      value={signup.name}
-                      onChange={(e) => setSignup({ ...signup, name: e.target.value })}
-                      onKeyDown={(e) => onEnter(e, doSignup)}
-                    />
-                  </div>
-                  <div className={errorClass(signupError.name)}><span>{signupError.name}</span></div>
-                </div>
-
-                <div className="fGroup">
-                  <label htmlFor="rEmail">Email Address</label>
-                  <div className="inputWrap">
-                   
-                    <input
-                      type="email"
-                      id="rEmail"
-                      placeholder="you@example.com"
-                      maxLength={100}
-                      value={signup.email}
-                      onChange={(e) => setSignup({ ...signup, email: e.target.value })}
-                      onKeyDown={(e) => onEnter(e, doSignup)}
-                    />
-                  </div>
-                  <div className={errorClass(signupError.email)}><span>{signupError.email}</span></div>
-                </div>
-
-                <div className="fGroup">
-                  <label htmlFor="rPass">Password</label>
-                  <div className="inputWrap">
-                    
-                    <input
-                      type={boxType(show.rPass)}
-                      id="rPass"
-                      placeholder="Create a strong password"
-                      maxLength={100}
-                      value={signup.pass}
-                      onChange={(e) => setSignup({ ...signup, pass: e.target.value })}
-                      onKeyDown={(e) => onEnter(e, doSignup)}
-                    />
-                   <button type="button" onClick={() => flip("rPass")}>{show.rPass ? "Hide" : "Show"}</button>
-                  
-                  </div>
-                  <div className={errorClass(signupError.pass)}><span>{signupError.pass}</span></div>
-                </div>
-
-                <div className="fGroup">
-                  <label htmlFor="rConfirm">Confirm Password</label>
-                  <div className="inputWrap">
-                   
-                    <input
-                      type={boxType(show.rConfirm)}
-                      id="rConfirm"
-                      placeholder="Repeat your password"
-                      maxLength={100}
-                      value={signup.confirm}
-                      onChange={(e) => setSignup({ ...signup, confirm: e.target.value })}
-                      onKeyDown={(e) => onEnter(e, doSignup)}
-                    />
-                  
-                    <button type="button" onClick={() => flip("rConfirm")}>{show.rConfirm ? "Hide" : "Show"}</button>
-                  </div>
-                  <div className={errorClass(signupError.confirm)}><span>{signupError.confirm}</span></div>
-                </div>
-
-                <button className="submitButton" onClick={doSignup}>
-                  <span className="textButton">Create Account</span>
-                </button>
-
-                <div className="divider">or continue with</div>
-                <div className="socials">
-                  <button className="socialButton" onClick={demoLogin}> Google</button>
-                  <button className="socialButton" onClick={demoLogin}> Apple</button>
-                </div>
-              </div>
-            )}
+            {tab === "login"
+              ? <LoginForm onSwitchTab={() => setTab("register")} />
+              : <SignupForm onSwitchTab={() => setTab("login")} />
+            }
           </div>
         </div>
       </main>
@@ -328,4 +54,3 @@ export default function Login() {
     </div>
   );
 }
-  
