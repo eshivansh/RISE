@@ -1,12 +1,14 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { useAuth } from "../../context/useAuth.js";
 import { validateSignup } from "../../utils/validate.js";
 import FormField from "../ui/FormField.jsx";
+import { reset } from "../../store/portfolioSlice.js";
+import { resetWatchlist } from "../../store/watchlistSlice.js";
 
 export default function SignupForm({ onSwitchTab }) {
   const { loginUser } = useAuth();
-  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [form, setForm] = useState({ name: "", email: "", pass: "", confirm: "" });
   const [errors, setErrors] = useState({});
@@ -20,8 +22,10 @@ export default function SignupForm({ onSwitchTab }) {
     const found = validateSignup(form);
     setErrors(found);
     if (Object.keys(found).length > 0) return;
+    // A new account starts with a fresh demo portfolio and watchlist.
+    dispatch(reset());
+    dispatch(resetWatchlist());
     loginUser({ name: form.name.trim(), email: form.email.trim(), pass: form.pass });
-    navigate("/welcome");
   }
 
   return (
@@ -34,7 +38,7 @@ export default function SignupForm({ onSwitchTab }) {
         </a>
       </p>
 
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} noValidate>
         <FormField
           label="Full Name"
           icon="bi-person"

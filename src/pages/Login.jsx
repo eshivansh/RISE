@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useLocation } from "react-router-dom";
 import { useAuth } from "../context/useAuth.js";
 import "../styles/login.css";
 import AuthInfoPanel from "../components/auth/AuthInfoPanel.jsx";
@@ -8,12 +8,13 @@ import SignupForm from "../components/auth/SignupForm.jsx";
 
 export default function Login() {
   const { user } = useAuth();
+  const location = useLocation();
   const [tab, setTab] = useState("login");
 
+  // Signed in (or just logged in): go to the page the user wanted, or Welcome.
   if (user) {
-    return <Navigate to="/welcome" replace />;
+    return <Navigate to={location.state?.from || "/welcome"} replace />;
   }
-
 
   function tabClass(name) {
     if (tab === name) {
@@ -26,7 +27,7 @@ export default function Login() {
     <div className="loginPage">
       <header className="header">
         <Link to="/" className="logo">
-          <img src="./assets/image.png" alt="logo" />
+          <img src="/assets/image.png" alt="logo" />
           <span>RISE</span>
         </Link>
         <Link to="/" className="backLink">Back to Home</Link>

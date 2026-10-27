@@ -1,6 +1,6 @@
 const features = [
   { icon: "bi-bar-chart-line", title: "Live Market Data" },
-  { icon: "bi-robot", title: "AI Smart Advisor" },
+  { icon: "bi-wallet2", title: "Virtual $100,000 Portfolio" },
   { icon: "bi-shield-lock", title: "Bank-Grade Security" },
 ];
 

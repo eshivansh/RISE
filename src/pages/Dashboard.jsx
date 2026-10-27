@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useLocation } from "react-router-dom";
 import RiskModal from "../components/dashboard/RiskModal.jsx";
 import Watchlist from "../components/dashboard/Watchlist.jsx";
 import ChartPanel from "../components/dashboard/ChartPanel.jsx";
@@ -15,7 +16,8 @@ const steps = [
 ];
 
 export default function Dashboard() {
-  const [picked, setPicked] = useState("AAPL");
+  const location = useLocation();
+  const [picked, setPicked] = useState(location.state?.symbol || "AAPL");
   const [showRisk, setShowRisk] = useState(localStorage.getItem("rise_risk_accepted") !== "true");
 
   function pickStock(symbol) {

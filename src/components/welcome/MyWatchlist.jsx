@@ -7,8 +7,8 @@ export default function MyWatchlist() {
   const symbols = useSelector((state) => state.watchlist.symbols);
   const navigate = useNavigate();
 
-  function goToDashboard() {
-    navigate("/dashboard");
+  function openStock(symbol) {
+    navigate("/dashboard", { state: { symbol: symbol } });
   }
 
   return (
@@ -26,10 +26,11 @@ export default function MyWatchlist() {
               return null;
             }
             return (
-              <div
+              <button
+                type="button"
                 className="watchlist-row"
                 key={sym}
-                onClick={goToDashboard}
+                onClick={() => openStock(sym)}
               >
                 <div className="watchlist-info">
                   <span className="watchlist-sym">{stock.symbol}</span>
@@ -38,7 +39,7 @@ export default function MyWatchlist() {
                 <div className="watchlist-prices">
                   <span className="watchlist-price">{money(stock.price)}</span>
                 </div>
-              </div>
+              </button>
             );
           })}
         </div>
