@@ -37,19 +37,27 @@ export default function Dashboard() {
   // Live price for the selected stock now and every minute.
   // Only one stock is refreshed to stay inside the free API limit.
   useEffect(function () {
-    function refresh() {
+    let retryTimer = null;
+
+    // The free API refuses two requests within about a second (e.g. right after a search),
+    // so an empty answer is tried once more shortly after.
+    function refresh(canRetry) {
       fetchQuote(picked)
         .then(function (quote) {
           if (quote) {
             dispatch(setQuote({ symbol: picked, price: quote.price, change: quote.change }));
+          } else if (canRetry) {
+            retryTimer = setTimeout(() => refresh(false), 1500);
           }
         })
         .catch(function () {});
     }
-    refresh();
-    const timer = setInterval(refresh, CONFIG.autoRefreshSeconds * 1000);
+
+    refresh(true);
+    const timer = setInterval(() => refresh(true), CONFIG.autoRefreshSeconds * 1000);
     return function () {
       clearInterval(timer);
+      clearTimeout(retryTimer);
     };
   }, [picked, dispatch]);
 
