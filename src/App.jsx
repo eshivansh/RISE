@@ -19,12 +19,13 @@ export default function App() {
             path="/welcome"
             element={<Welcome />}
           />
-
-          <Route
-            path="/dashboard"
-            element={<Dashboard />}
-          />
         </Route>
+
+        {/* Dashboard is full screen with its own header, so no sidebar layout */}
+        <Route
+          path="/dashboard"
+          element={<Dashboard />}
+        />
       </Route>
 
       <Route

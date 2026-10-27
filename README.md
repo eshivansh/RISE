@@ -26,8 +26,8 @@ RISE is a university group project. It is a single-page React app with four page
 | :--- | :--- |
 | **Home** | Landing page with a scrolling stock ticker, platform features, testimonials and live TradingView charts |
 | **Login** | Sign in or create an account, with form validation and a demo account |
-| **Welcome** | Greets the signed-in user and shows account stats, market movers and daily tips |
-| **Dashboard** | Risk notice, stock table with search, category filter, price sorting and pagination, chart and order panel |
+| **Welcome** | Greets the signed-in user and shows account stats, market movers, their watchlist and daily tips |
+| **Dashboard** | Full-screen trading page: stock search in the header, watchlist, chart, buy and sell with virtual money, stock table with filters and pagination, portfolio, learning plan and AI trading coach |
 
 > **Educational demo only.** Prices are sample data and all money is virtual. Nothing in this app is financial advice. Do not trade real money based on it.
 
@@ -61,8 +61,9 @@ RISE is a university group project. It is a single-page React app with four page
 | Context API | `AuthContext` shares the signed-in user |
 | Controlled forms and validation | Login and Create Account forms |
 | Custom hooks | `useDebounce`, `usePortfolio` |
-| Redux Toolkit | `src/store/`: portfolio (cash, holdings, buy, sell, reset) and watchlist slices |
-| Debouncing | Dashboard stock search waits until typing stops |
+| Redux Toolkit | `src/store/`: portfolio (cash, holdings, buy, sell, reset), watchlist and market (live prices) slices |
+| Debouncing | header stock search (market API) and the stock table filter wait until typing stops |
+| API calls | `src/api/`: Alpha Vantage for search and prices, Gemini for the trading coach |
 | Filtering and sorting | category filter, price high to low / low to high |
 | Pagination | Dashboard stock table, 5 rows per page |
 | Modal | risk notice on the Dashboard |
@@ -94,10 +95,13 @@ Requires Node.js 20 or newer.
 git clone https://github.com/eshivansh/RISE.git
 cd RISE
 npm install
+cp .env.example .env   # then add your own API keys
 npm run dev
 ```
 
 Open **http://localhost:5173**. Demo login: `demo@rise.com` / `demo1234`.
+
+Without API keys the app still works with sample prices; the header search and the coach show a setup message. Keys in `.env` end up in the browser bundle, so use free demo keys only and never commit `.env`.
 
 | Command | Description |
 | :--- | :--- |
@@ -150,18 +154,16 @@ RISE/
 
 | Area | Status |
 | :--- | :--- |
-| Home page | ✅ done, being split into components |
-| Login / Register | ✅ working, form refactor in progress |
-| Shared data, hooks and UI components | ✅ done |
-| Shared layout and protected routes | 🔄 in progress |
-| Welcome content | 🔄 in progress |
-| Dashboard | 🔄 in progress |
+| Home page | ✅ done |
+| Login / Register | ✅ done |
+| Shared layout and protected routes | ✅ done |
+| Welcome | ✅ done |
+| Dashboard | ✅ done |
 
 ### Later
 
-- Live prices from a market data API
-- Trading coach chat
 - Missions and stock detail pages
+- Backend login instead of localStorage
 
 ---
 

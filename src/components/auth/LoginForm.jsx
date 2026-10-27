@@ -1,13 +1,11 @@
 import { useState, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../../context/useAuth.js";
 import { validateLogin } from "../../utils/validate.js";
 import FormField from "../ui/FormField.jsx";
+import SocialButtons from "./SocialButtons.jsx";
 
 export default function LoginForm({ onSwitchTab }) {
   const { loginUser } = useAuth();
-  const navigate = useNavigate();
-  const location = useLocation();
 
   const [form, setForm] = useState({ email: "", pass: "" });
   const [errors, setErrors] = useState({});
@@ -38,7 +36,6 @@ export default function LoginForm({ onSwitchTab }) {
     }
 
     loginUser(saved);
-    navigate(location.state?.from || "/welcome");
   }
 
   return (
@@ -51,7 +48,7 @@ export default function LoginForm({ onSwitchTab }) {
         </a>
       </p>
 
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} noValidate>
         <FormField
           label="Email Address"
           icon="bi-envelope"
@@ -92,11 +89,7 @@ export default function LoginForm({ onSwitchTab }) {
         Demo login → <strong>demo@rise.com</strong> / <strong>demo1234</strong>
       </div>
 
-      <div className="divider">or continue with</div>
-      <div className="socials">
-        <button type="button" className="socialButton">Google</button>
-        <button type="button" className="socialButton">Apple</button>
-      </div>
+      <SocialButtons />
     </div>
   );
 }

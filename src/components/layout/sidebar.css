@@ -95,13 +95,47 @@
   box-sizing: border-box;
 }
 
+/* Phones: the sidebar becomes a bar across the top */
 @media (max-width: 768px) {
   .sidebar {
-    width: 200px;
+    position: static;
+    width: 100%;
+    height: auto;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+  }
+
+  .sidebar-header h2 {
+    margin: 0;
+  }
+
+  .sidebar-user {
+    display: none;
+  }
+
+  .sidebar-nav {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-top: 0;
+  }
+
+  .sidebar-nav a,
+  .sidebar-footer button {
+    padding: 8px 10px;
+    font-size: 14px;
+  }
+
+  .sidebar-footer {
+    margin-top: 0;
+    margin-left: auto;
   }
 
   .main-content {
-    margin-left: 200px;
+    margin-left: 0;
     padding: 16px;
   }
 }
