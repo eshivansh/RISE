@@ -125,3 +125,33 @@
 /* ============================================
    Page content styles go below this line.
    ============================================ */
+
+.welcome-page {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.welcome-hero {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.welcome-title {
+    font-size: 32px;
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: -0.5px;
+}
+
+.welcome-subtitle {
+    color: var(--muted);
+    font-size: 15px;
+}
+
+.welcome-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+}
