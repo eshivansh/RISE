@@ -1,16 +1,10 @@
-import { Routes,Route,Navigate,} from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Home from "./pages/Home.jsx";
 import Login from "./pages/Login.jsx";
 import Welcome from "./pages/Welcome.jsx";
-
-
+import Dashboard from "./pages/Dashboard.jsx";
 import ProtectedRoutes from "./components/layout/ProtectedRoutes.jsx";
 import Layout from "./components/layout/Layout.jsx";
-
-
-function Dashboard() {
-  return <h1>Dashboard</h1>;
-}
 
 export default function App() {
   return (
