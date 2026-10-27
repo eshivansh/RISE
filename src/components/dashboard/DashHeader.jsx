@@ -12,12 +12,14 @@ export default function DashHeader({ onPick, onRiskInfo }) {
 
         <SymbolSearch onPick={onPick} />
 
-        <button type="button" className="risk-link" onClick={onRiskInfo}>
-          <i className="bi bi-exclamation-triangle"></i> Risk info
-        </button>
-        <Link to="/welcome" className="header-back">
-          <i className="bi bi-grid-1x2"></i> Home
-        </Link>
+        <div className="header-actions">
+          <button type="button" className="risk-link" onClick={onRiskInfo}>
+            <i className="bi bi-exclamation-triangle"></i> Risk info
+          </button>
+          <Link to="/welcome" className="header-back">
+            <i className="bi bi-grid-1x2"></i> Home
+          </Link>
+        </div>
       </div>
     </header>
   );

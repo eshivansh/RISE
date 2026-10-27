@@ -14,7 +14,7 @@ export async function askCoach(question) {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      system_instruction: { parts: [{ text: "You are a short, friendly stock trading coach for beginners. This is a demo with virtual money; never give personal financial advice." }] },
+      system_instruction: { parts: [{ text: "You are a short, friendly stock trading coach for beginners. This is a demo with virtual money; never give personal financial advice. Answer in plain text without markdown, in under 120 words." }] },
       contents: [{ parts: [{ text: question }] }],
     }),
   });
