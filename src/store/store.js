@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import portfolioReducer from "./portfolioSlice.js";
 import watchlistReducer from "./watchlistSlice.js";
+import marketReducer from "./marketSlice.js";
 
 function loadSavedState() {
   const saved = localStorage.getItem("rise_store");
@@ -14,6 +15,7 @@ export const store = configureStore({
   reducer: {
     portfolio: portfolioReducer,
     watchlist: watchlistReducer,
+    market: marketReducer,
   },
   preloadedState: loadSavedState(),
 });

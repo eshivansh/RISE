@@ -1,8 +1,22 @@
-import { findStock } from "../../data/stocks.js";
 import { money } from "../../utils/format.js";
 import { useDispatch } from "react-redux";
 import usePortfolio from "../../hooks/usePortfolio.js";
+import useStock from "../../hooks/useStock.js";
 import { reset } from "../../store/portfolioSlice.js";
+
+function PortfolioRow({ symbol, holding }) {
+  const stock = useStock(symbol);
+  const pl = (stock.price - holding.avg) * holding.qty;
+  return (
+    <tr>
+      <td>{symbol}</td>
+      <td>{holding.qty}</td>
+      <td>{money(holding.avg)}</td>
+      <td>{money(stock.price)}</td>
+      <td className={pl < 0 ? "pl-down" : "pl-up"}>{money(pl)}</td>
+    </tr>
+  );
+}
 
 export default function Portfolio() {
   const dispatch = useDispatch();
@@ -33,20 +47,9 @@ export default function Portfolio() {
             <tr><th>Symbol</th><th>Qty</th><th>Avg price</th><th>Price</th><th>P/L</th></tr>
           </thead>
           <tbody>
-            {symbols.map((symbol) => {
-              const h = holdings[symbol];
-              const price = findStock(symbol).price;
-              const pl = (price - h.avg) * h.qty;
-              return (
-                <tr key={symbol}>
-                  <td>{symbol}</td>
-                  <td>{h.qty}</td>
-                  <td>{money(h.avg)}</td>
-                  <td>{money(price)}</td>
-                  <td className={pl < 0 ? "pl-down" : "pl-up"}>{money(pl)}</td>
-                </tr>
-              );
-            })}
+            {symbols.map((symbol) => (
+              <PortfolioRow key={symbol} symbol={symbol} holding={holdings[symbol]} />
+            ))}
             {symbols.length === 0 && (
               <tr className="empty-row">
                 <td colSpan={5}>No positions yet. Buy a stock in the order panel to start.</td>

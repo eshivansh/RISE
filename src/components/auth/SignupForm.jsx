@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { useAuth } from "../../context/useAuth.js";
 import { validateSignup } from "../../utils/validate.js";
 import FormField from "../ui/FormField.jsx";
+import SocialButtons from "./SocialButtons.jsx";
 import { reset } from "../../store/portfolioSlice.js";
 import { resetWatchlist } from "../../store/watchlistSlice.js";
 
@@ -88,11 +89,7 @@ export default function SignupForm({ onSwitchTab }) {
         </button>
       </form>
 
-      <div className="divider">or continue with</div>
-      <div className="socials">
-        <button type="button" className="socialButton">Google</button>
-        <button type="button" className="socialButton">Apple</button>
-      </div>
+      <SocialButtons />
     </div>
   );
 }

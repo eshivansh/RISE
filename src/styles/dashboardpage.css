@@ -1,21 +1,141 @@
 /* --- Page layout ----------------------------------------------- */
 
+.app-shell {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
 .trade-main {
+    flex: 1;
+    width: 100%;
+    max-width: 1500px;
+    margin: 0 auto;
     display: grid;
     gap: 16px;
+    padding: 16px 18px;
 }
 
-.dash-head {
+.app-footer {
+    padding: 16px 18px 24px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+/* --- Header with stock search ---------------------------------- */
+
+.header-container {
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 8px 18px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 12px;
+    gap: 18px;
 }
 
-.dash-head h1 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-weight: 400;
-    letter-spacing: 2px;
+.header-center {
+    flex: 1;
+    position: relative;
+}
+
+.dash-page .search-wrap {
+    height: 40px;
+    max-width: 640px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 12px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    background: #050505;
+}
+
+.dash-page .search-wrap:focus-within {
+    border-color: var(--cyan);
+}
+
+.dash-page .search-wrap i {
+    color: var(--muted);
+}
+
+.dash-page .search-wrap input {
+    flex: 1;
+    min-width: 0;
+    height: 100%;
+    padding: 0;
+    border: 0;
+    background: transparent;
+}
+
+.search-results {
+    position: absolute;
+    left: 0;
+    right: 0;
+    max-width: 640px;
+    top: 46px;
+    max-height: 320px;
+    overflow-y: auto;
+    display: none;
+    z-index: 30;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--surface);
+}
+
+.search-results.is-open {
+    display: block;
+}
+
+.search-result {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    border: 0;
+    border-bottom: 1px solid var(--line);
+    background: var(--surface);
+    color: var(--text);
+    font: inherit;
+    font-size: 14px;
+    text-align: left;
+}
+
+button.search-result {
+    cursor: pointer;
+}
+
+button.search-result:hover {
+    background: var(--surface2);
+}
+
+.search-result strong {
+    width: 90px;
+    flex-shrink: 0;
+}
+
+.header-back {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--muted);
+    white-space: nowrap;
+}
+
+.header-back:hover {
+    color: var(--blue);
+}
+
+.price-source {
+    padding: 2px 8px;
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 600;
 }
 
 .risk-link {
@@ -436,6 +556,166 @@
 
 /* --- Responsive ------------------------------------------------ */
 
+/* --- Learning plan and coach ---------------------------------- */
+
+.trade-bottom {
+    display: grid;
+    grid-template-columns: 340px minmax(0, 1fr);
+    gap: 16px;
+    align-items: stretch;
+}
+
+.strategy-builder .field {
+    padding: 0 14px 12px;
+}
+
+.strategy-builder .field:first-of-type {
+    padding-top: 12px;
+}
+
+.coach-panel {
+    display: flex;
+    flex-direction: column;
+}
+
+.prompt-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--line);
+}
+
+.prompt-chips button,
+.btn-send {
+    min-height: 32px;
+    padding: 0 12px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    background: var(--surface2);
+    color: var(--text);
+    font: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.prompt-chips button:hover:not(:disabled) {
+    border-color: #3a3a3a;
+    background: var(--surface3);
+}
+
+.btn-send {
+    border-color: var(--button);
+    background: var(--button);
+    color: var(--buttonText);
+}
+
+.prompt-chips button:disabled,
+.btn-send:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.chat-log {
+    flex: 1;
+    min-height: 260px;
+    max-height: 320px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 12px;
+}
+
+.chat-empty {
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.chat-message {
+    max-width: min(680px, 100%);
+    padding: 10px 12px;
+    border-radius: var(--radius);
+    font-size: 14px;
+    white-space: pre-wrap;
+}
+
+.chat-message.assistant {
+    align-self: flex-start;
+    border: 1px solid var(--line);
+    background: #050505;
+}
+
+.chat-message.user {
+    align-self: flex-end;
+    background: var(--button);
+    color: var(--buttonText);
+}
+
+.ai-typing {
+    display: none;
+    align-items: center;
+    gap: 4px;
+    padding: 0 14px 10px;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.ai-typing.active {
+    display: flex;
+}
+
+.dot-flashing {
+    position: relative;
+    width: 4px;
+    height: 4px;
+    margin: 0 10px;
+    border-radius: 5px;
+    background-color: var(--cyan);
+    animation: dot-flashing 1s infinite linear alternate;
+    animation-delay: 0.5s;
+}
+
+.dot-flashing::before,
+.dot-flashing::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    width: 4px;
+    height: 4px;
+    border-radius: 5px;
+    background-color: var(--cyan);
+    animation: dot-flashing 1s infinite linear alternate;
+}
+
+.dot-flashing::before {
+    left: -8px;
+    animation-delay: 0s;
+}
+
+.dot-flashing::after {
+    left: 8px;
+    animation-delay: 1s;
+}
+
+@keyframes dot-flashing {
+    0% { background-color: var(--cyan); }
+    50%, 100% { background-color: rgba(0, 212, 255, 0.2); }
+}
+
+.chat-form {
+    display: flex;
+    gap: 10px;
+    padding: 14px;
+    border-top: 1px solid var(--line);
+}
+
+.chat-form input {
+    flex: 1;
+    min-width: 0;
+}
+
 @media (max-width: 1300px) {
     .trade-top {
         grid-template-columns: 1fr 1fr;
@@ -446,7 +726,21 @@
     }
 }
 
+@media (max-width: 1000px) {
+    .trade-bottom {
+        grid-template-columns: 1fr;
+    }
+}
+
 @media (max-width: 768px) {
+    .header-container {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    .header-center {
+        order: 3;
+        flex-basis: 100%;
+    }
     .trade-top,
     .table-filters,
     .stats-row {

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useAuth } from "../../context/useAuth.js";
 import { validateLogin } from "../../utils/validate.js";
 import FormField from "../ui/FormField.jsx";
+import SocialButtons from "./SocialButtons.jsx";
 
 export default function LoginForm({ onSwitchTab }) {
   const { loginUser } = useAuth();
@@ -88,11 +89,7 @@ export default function LoginForm({ onSwitchTab }) {
         Demo login → <strong>demo@rise.com</strong> / <strong>demo1234</strong>
       </div>
 
-      <div className="divider">or continue with</div>
-      <div className="socials">
-        <button type="button" className="socialButton">Google</button>
-        <button type="button" className="socialButton">Apple</button>
-      </div>
+      <SocialButtons />
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { findStock } from "../../data/stocks.js";
+import useStock from "../../hooks/useStock.js";
 import { money } from "../../utils/format.js";
 import usePortfolio from "../../hooks/usePortfolio.js";
 import { buy, sell } from "../../store/portfolioSlice.js";
@@ -11,7 +11,7 @@ export default function OrderPanel({ symbol }) {
   const [qty, setQty] = useState(1);
   const [note, setNote] = useState("Pick a stock, set a quantity, then Buy or Sell.");
 
-  const stock = findStock(symbol);
+  const stock = useStock(symbol);
   const cost = stock.price * qty;
   let owned = 0;
   if (holdings[symbol]) {
