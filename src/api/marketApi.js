@@ -36,6 +36,8 @@ export async function searchSymbols(query) {
     return { results: [], error: "Search limit reached for today. Try again later." };
   }
   const matches = data.bestMatches || [];
-  const results = matches.map((m) => ({ symbol: m["1. symbol"], name: m["2. name"] }));
+  // Keep US listings only: the chart and prices work for those symbols.
+  const usMatches = matches.filter((m) => m["4. region"] === "United States");
+  const results = usMatches.map((m) => ({ symbol: m["1. symbol"], name: m["2. name"] }));
   return { results: results, error: "" };
 }
