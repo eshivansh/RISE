@@ -65,12 +65,7 @@ export default function StockTable({ onPick }) {
   }
 
   return (
-    <section className="surface stock-table">
-      <div className="section-title">
-        <h2>All Stocks</h2>
-        <span>{list.length} found</span>
-      </div>
-
+    <div className="stock-table">
       <div className="table-filters">
         <input
           type="search"
@@ -134,7 +129,8 @@ export default function StockTable({ onPick }) {
         </table>
       </div>
 
+      <p className="table-count">{list.length} stocks found</p>
       <Pagination page={page} totalPages={totalPages} onChange={setPage} />
-    </section>
+    </div>
   );
 }

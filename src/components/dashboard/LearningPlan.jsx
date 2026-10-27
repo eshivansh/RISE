@@ -1,16 +1,18 @@
-export default function LearningPlan({ plan, onChange }) {
+import { useDispatch, useSelector } from "react-redux";
+import { setPlan } from "../../store/coachSlice.js";
+
+// The learner's trading plan. The coach reads it with every question.
+export default function LearningPlan({ onDone }) {
+  const dispatch = useDispatch();
+  const plan = useSelector((state) => state.coach.plan);
+
   // One handler for every field: the input's name says which key to update.
   function handleChange(e) {
-    onChange({ ...plan, [e.target.name]: e.target.value });
+    dispatch(setPlan({ ...plan, [e.target.name]: e.target.value }));
   }
 
   return (
-    <section className="surface strategy-builder">
-      <div className="section-title">
-        <h2>Learning Plan</h2>
-        <span>The coach reads this</span>
-      </div>
-
+    <div className="plan-editor">
       <label className="field">
         <span>Risk profile</span>
         <select name="risk" value={plan.risk} onChange={handleChange}>
@@ -48,6 +50,8 @@ export default function LearningPlan({ plan, onChange }) {
         <span>Stop rule</span>
         <input name="stop" type="text" value={plan.stop} onChange={handleChange} />
       </label>
-    </section>
+
+      <button type="button" className="btn-quiet" onClick={onDone}>Done</button>
+    </div>
   );
 }

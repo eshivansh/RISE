@@ -7,13 +7,9 @@ import PriceChange from "../ui/PriceChange.jsx";
 function WatchRow({ symbol, active, onPick, onRemove }) {
   const stock = useStock(symbol);
   return (
-    <div className="watch-item">
-      <button
-        type="button"
-        className={active ? "watch-row is-active" : "watch-row"}
-        onClick={() => onPick(symbol)}
-      >
-        <span>
+    <li className={active ? "watch-item is-active" : "watch-item"}>
+      <button type="button" className="watch-row" aria-current={active} onClick={() => onPick(symbol)}>
+        <span className="watch-left">
           <span className="watch-symbol">{symbol}</span>
           <span className="watch-name">{stock.name}</span>
         </span>
@@ -28,9 +24,9 @@ function WatchRow({ symbol, active, onPick, onRemove }) {
         aria-label={"Remove " + symbol + " from watchlist"}
         onClick={() => onRemove(symbol)}
       >
-        ×
+        <i className="bi bi-x" aria-hidden="true"></i>
       </button>
-    </div>
+    </li>
   );
 }
 
@@ -38,13 +34,17 @@ export default function Watchlist({ picked, onPick }) {
   const dispatch = useDispatch();
   const symbols = useSelector((state) => state.watchlist.symbols);
 
+  function focusSearch() {
+    const box = document.getElementById("symbol-search");
+    if (box) {
+      box.focus();
+    }
+  }
+
   return (
-    <section className="surface watchlist-panel">
-      <div className="section-title">
-        <h2>Watchlist</h2>
-        <span>{symbols.length} stocks</span>
-      </div>
-      <div className="watchlist">
+    <section className="watchlist-panel" aria-label="Watchlist">
+      <h2 className="col-title">Watchlist</h2>
+      <ul className="watchlist">
         {symbols.map((symbol) => (
           <WatchRow
             key={symbol}
@@ -54,10 +54,11 @@ export default function Watchlist({ picked, onPick }) {
             onRemove={(s) => dispatch(removeFromWatchlist(s))}
           />
         ))}
-        {symbols.length === 0 && (
-          <p className="watch-empty">Search above or use + in the table below to add stocks.</p>
-        )}
-      </div>
+      </ul>
+      {symbols.length === 0 && <p className="watch-empty">Your watchlist is empty.</p>}
+      <button type="button" className="btn-add" onClick={focusSearch}>
+        <i className="bi bi-plus" aria-hidden="true"></i> Add stock
+      </button>
     </section>
   );
 }

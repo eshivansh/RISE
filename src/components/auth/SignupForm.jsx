@@ -6,6 +6,8 @@ import FormField from "../ui/FormField.jsx";
 import SocialButtons from "./SocialButtons.jsx";
 import { reset } from "../../store/portfolioSlice.js";
 import { resetWatchlist } from "../../store/watchlistSlice.js";
+import { resetLesson } from "../../store/lessonSlice.js";
+import { clearChat } from "../../store/coachSlice.js";
 
 export default function SignupForm({ onSwitchTab }) {
   const { loginUser } = useAuth();
@@ -23,9 +25,11 @@ export default function SignupForm({ onSwitchTab }) {
     const found = validateSignup(form);
     setErrors(found);
     if (Object.keys(found).length > 0) return;
-    // A new account starts with a fresh demo portfolio and watchlist.
+    // A new account starts with a fresh demo portfolio, watchlist, lesson and coach chat.
     dispatch(reset());
     dispatch(resetWatchlist());
+    dispatch(resetLesson());
+    dispatch(clearChat());
     loginUser({ name: form.name.trim(), email: form.email.trim(), pass: form.pass });
   }
 
